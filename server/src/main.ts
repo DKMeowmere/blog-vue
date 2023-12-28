@@ -1,2 +1,4 @@
-console.log("online 2")
-console.log(process.env.NODE_ENV)
+import { env } from "./config/envVariables";
+
+console.log(env)
+ 
