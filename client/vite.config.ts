@@ -9,7 +9,12 @@ export default defineConfig({
 	},
 	plugins: [vue()],
 	build: {
-		outDir: "../server/dist/client",
+		outDir: "../server/dist",
+		rollupOptions: {
+			output: {
+				entryFileNames: "static/js/[name]-[hash].js",
+			},
+		},
 	},
 	resolve: {
 		alias: [

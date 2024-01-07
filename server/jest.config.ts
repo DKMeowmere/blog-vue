@@ -1,19 +1,28 @@
-/**
- * For a detailed explanation regarding each configuration property, visit:
- * https://jestjs.io/docs/configuration
- */
+import type { JestConfigWithTsJest } from "ts-jest"
 
-import type { Config } from "jest"
-
-const config: Config = {
+const config: JestConfigWithTsJest = {
 	clearMocks: true,
 	collectCoverage: true,
-	coverageDirectory: "coverage",
+	coverageDirectory: "__tests__/coverage",
 	coverageProvider: "v8",
-	preset: "ts-jest",
+	extensionsToTreatAsEsm: [".ts"],
+	moduleNameMapper: {
+		"^(\\.{1,2}/.*)\\.js$": "$1",
+	},
+	modulePathIgnorePatterns: [
+		"<rootDir>/__tests__/components",
+		"<rootDir>/__tests__/fixtures",
+		"<rootDir>/__tests__/coverage",
+	],
+	preset: "ts-jest/presets/default-esm",
 	testEnvironment: "node",
 	transform: {
-		"^.+\\.ts?$": "ts-jest",
+		"^.+\\.ts?$": [
+			"ts-jest",
+			{
+				useESM: true,
+			},
+		],
 	},
 	transformIgnorePatterns: ["<rootDir>/node_modules/"],
 }

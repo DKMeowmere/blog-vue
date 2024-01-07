@@ -3,14 +3,18 @@
 		"target": "ESNext",
 		"module": "ESNext",
 		"esModuleInterop": true,
-		"outDir": "./dist/src",
+		"outDir": "./dist",
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,
 		"skipLibCheck": true,
-		"moduleResolution": "node",
+		"moduleResolution": "Node",
 		"types": ["node", "jest", "@types/jest"],
 		"allowJs": true,
 		"resolveJsonModule": true
+	},
+	"tsc-alias": {
+		"resolveFullPaths": true,
+		"verbose": false
 	},
 	"include": ["src"],
 	"exclude": ["dist", "node_modules", "__tests__/**", "jest.config.ts"]
