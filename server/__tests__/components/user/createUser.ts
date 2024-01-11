@@ -2,10 +2,10 @@ import request from "supertest"
 import { Express } from "express"
 import { expect, describe, it } from "vitest"
 import { userSchema } from "../../../types/user"
-import { getUser } from "../../fixtures/getUser"
+import { generateUser } from "../../fixtures/generateUser"
 
 export async function createUser(app: Express) {
-	const userPayload = getUser()
+	const userPayload = generateUser()
 	describe("given the user payload and file with invalid extension", () => {
 		it("should return 400", async () => {
 			const { statusCode } = await request(app)
@@ -77,6 +77,7 @@ export async function createUser(app: Express) {
 			expect(body.token).toBeDefined()
 			expect(body.user.fileLocation).toBeDefined()
 			expect(body.user.password).toBe("")
+      //expect file to exist
 		})
 	})
 	describe("given the user payload with too short password", () => {

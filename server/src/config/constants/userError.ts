@@ -39,3 +39,9 @@ export const ACCOUNT_CREATION_FAILED: CustomErrorType = {
 	message: "Utworzenie konta nie powiodło się",
 	statusCode: 400,
 }
+
+export const MAX_NAME_LENGTH_EXCEEDED: CustomErrorType = {
+	message: "Maksymalna długość nazwy użytkownika to 20 znaków",
+	statusCode: 400,
+}
+

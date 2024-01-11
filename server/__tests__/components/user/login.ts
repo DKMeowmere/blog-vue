@@ -2,10 +2,10 @@ import request from "supertest"
 import { Express } from "express"
 import { expect, describe, it, beforeEach } from "vitest"
 import { userSchema } from "../../../types/user"
-import { getUser } from "../../fixtures/getUser"
+import { generateUser } from "../../fixtures/generateUser"
 
 export function login(app: Express) {
-	const { email, name, biography, password } = getUser()
+	const { email, name, biography, password } = generateUser()
 
 	beforeEach(async () => {
 		await request(app)

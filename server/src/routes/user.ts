@@ -1,32 +1,21 @@
 import { Router } from "express"
-import path from "path"
-import multer, { memoryStorage } from "multer"
 import { createUser } from "../controllers/user/createUser"
 import { login } from "../controllers/user/login"
+import { getUsers } from "../controllers/user/getUsers"
+import { getUser } from "../controllers/user/getUser"
+import { updateUser } from "../controllers/user/updateUser"
+import { deleteUser } from "../controllers/user/deleteUser"
+import { requireAuth } from "../middlewares/auth"
+import { uploadFile } from "../middlewares/uploadFile"
 
 export const userRouter = Router()
 
-const storage = memoryStorage()
-const upload = multer({
-	storage,
-	limits: { fileSize: 1024 * 1024 * 1024 * 5 },
-	fileFilter(req, file, cb) {
-		if (!file) {
-			cb(null, false)
-			return
-		}
-
-		const allowedFileExtensions = [".jpg", ".jpeg", ".png"]
-		const fileExtension = path.extname(file.originalname)
-
-		if (allowedFileExtensions.includes(fileExtension)) {
-			cb(null, true)
-			return
-		}
-
-		cb(null, false)
-	},
-})
-
-userRouter.route("/").post(upload.single("file"), createUser)
+userRouter.route("/").get(getUsers)
+userRouter
+	.route("/:id")
+	.get(getUser)
+	.get(getUser)
+	.patch(requireAuth, uploadFile, updateUser)
+	.delete(requireAuth, deleteUser)
+userRouter.route("/").post(uploadFile, createUser)
 userRouter.route("/login").post(login)

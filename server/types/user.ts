@@ -1,10 +1,9 @@
 import { z } from "zod"
+import { MAX_NAME_LENGTH_EXCEEDED } from "../src/config/constants/userError"
 
 export const userSchema = z.object({
 	_id: z.string(),
-	name: z
-		.string()
-		.max(20, { message: "maksymalna długość nazwy to 20 znaków" }),
+	name: z.string().max(20, { message: MAX_NAME_LENGTH_EXCEEDED.message }),
 	email: z.string().email({ message: "Nie prawidłowy email" }),
 	password: z.string(),
 	biography: z.string().default("").catch(""),

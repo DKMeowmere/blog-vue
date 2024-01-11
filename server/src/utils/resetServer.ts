@@ -12,6 +12,6 @@ export async function resetServer() {
 		if (file === ".gitkeep") {
 			return
 		}
-		await removeFile(`.$/${FILE_UPLOAD_PATH}/${file}`)
+		await removeFile(`./${FILE_UPLOAD_PATH}/${file}`)
 	})
 }
