@@ -2,15 +2,10 @@ import { NextFunction, Response } from "express"
 import multer, { memoryStorage } from "multer"
 import path from "path"
 import { CustomError } from "../../types/customError"
+import { UploadOptions } from "../../types/uploadOptions"
 import { CustomRequest } from "../../types/customRequest"
 import { FILE_UPLOAD_ERROR } from "../config/constants/universalErrors"
 import { handleControllerError } from "../utils/handleControllerError"
-
-type Options = {
-	allowedFileExtensions?: string[]
-	fileSize?: number
-	type?: "SINGLE" | "ARRAY"
-}
 
 export async function uploadFile(
 	req: CustomRequest,
@@ -20,7 +15,7 @@ export async function uploadFile(
 		type = "SINGLE",
 		allowedFileExtensions = [".jpg", ".jpeg", ".png"],
 		fileSize = 1024 * 1024 * 1024 * 5,
-	}: Options = {}
+	}: UploadOptions = {}
 ) {
 	try {
 		const storage = memoryStorage()
@@ -43,10 +38,9 @@ export async function uploadFile(
 				cb(null, false)
 			},
 		})
-
 		const uploadWithType =
 			type === "SINGLE" ? upload.single("file") : upload.array("files")
-
+      
 		uploadWithType(req, res, err => {
 			if (err) {
 				console.log(err)

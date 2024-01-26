@@ -12,7 +12,7 @@ export async function updateUser(req: CustomRequest, res: Response) {
 		const { id } = req.params
 		const { name, biography } = req.body
 
-		const user = await User.findById(id)
+		const user = await User.findById(id).populate("userBlogs")
 
 		if (!user) {
 			throw new CustomError(USER_NOT_FOUND)
@@ -42,7 +42,7 @@ export async function updateUser(req: CustomRequest, res: Response) {
 		}
 
 		await user.save()
-		//populate blogs
+
 		user.password = ""
 		res.json(user)
 	} catch (err: unknown) {

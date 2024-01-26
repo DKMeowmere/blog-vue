@@ -1,4 +1,5 @@
 import { UserType } from "../../types/user"
+import { User } from "../../src/models/user"
 
 export function generateUser(): Omit<UserType, "createdAt" | "updatedAt"> {
 	const email = `${crypto.randomUUID()}@user.com`
@@ -11,4 +12,8 @@ export function generateUser(): Omit<UserType, "createdAt" | "updatedAt"> {
 		fileLocation: "file location",
 		userBlogs: [],
 	}
+}
+
+export async function saveUser(user: UserType) {
+	await User.create(user)
 }

@@ -8,9 +8,12 @@ import {
 	FILE_UPLOAD_PATH,
 	NODE_ENV,
 } from "../config/envVariables"
+import { User } from "../models/user"
+import { Blog } from "../models/blog"
 import { userRouter } from "../routes/user"
 import { resetServer } from "./resetServer"
 import { writeLogsToFile } from "./writeLogsToFile"
+import { blogRouter } from "../routes/blog"
 
 type Options = {
 	saveLogs?: boolean
@@ -45,16 +48,21 @@ export function createServer(options: Options = {}) {
 	)
 
 	NODE_ENV === "TEST" &&
-		app.use("/api/reset", (req, res) => {
-			resetServer()
+		app.use("/api/reset", async (req, res) => {
+			await resetServer()
 
 			res.status(200).json({ message: "Server reseted" })
 		})
 
+	User.createCollection()
+	Blog.createCollection()
 	app.use("/api/user", userRouter)
+	app.use("/api/blog", blogRouter)
 
 	const absoluteUploadPath = path.resolve(`.${FILE_UPLOAD_PATH}`)
 	app.use("/static/uploads", express.static(absoluteUploadPath))
+	NODE_ENV === "TEST" &&
+		app.use("/static/.test-env-uploads", express.static(absoluteUploadPath))
 	app.use("/static", express.static(path.join(__dirname, "../../static")))
 
 	app.use((req, res) => {

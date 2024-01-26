@@ -1,7 +1,8 @@
 import { z } from "zod"
 
 export const quoteElementSchema = z.object({
-	content: z.string(),
+	_id: z.string().default(crypto.randomUUID()),
+	body: z.string(),
 	type: z.literal("QUOTE"),
 	author: z.string(),
 })

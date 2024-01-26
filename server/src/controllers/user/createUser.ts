@@ -1,7 +1,7 @@
 import { Response } from "express"
 import bcrypt from "bcrypt"
 import { CustomRequest } from "../../../types/customRequest"
-import { userSchemaPostValidation } from "../../../types/user"
+import { userValidationSchema } from "../../../types/user"
 import { CustomError } from "../../../types/customError"
 import { SALT_ROUNDS } from "../../config/envVariables"
 import { User } from "../../models/user"
@@ -13,7 +13,7 @@ import { createToken } from "../../utils/createToken"
 export async function createUser(req: CustomRequest, res: Response) {
 	try {
 		const _id = crypto.randomUUID()
-		const result = userSchemaPostValidation.safeParse({ ...req.body, _id })
+		const result = userValidationSchema.safeParse({ ...req.body, _id })
 
 		if (!result.success) {
 			throw new CustomError({

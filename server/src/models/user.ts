@@ -1,6 +1,5 @@
 import mongoose from "mongoose"
 import { UserType } from "../../types/user"
-import { blogSchema } from "./blog"
 
 const userSchema = new mongoose.Schema<UserType>(
 	{
@@ -25,7 +24,7 @@ const userSchema = new mongoose.Schema<UserType>(
 		},
 		email: { type: String, required: true, trim: true },
 		fileLocation: { type: String, required: true, trim: true },
-		userBlogs: [{ type: [blogSchema], default: [] }],
+		userBlogs: [{ type: String, ref: "Blog", default: [] }],
 	},
 	{ timestamps: true }
 )

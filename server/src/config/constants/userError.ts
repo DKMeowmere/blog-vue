@@ -45,3 +45,12 @@ export const MAX_NAME_LENGTH_EXCEEDED: CustomErrorType = {
 	statusCode: 400,
 }
 
+export const PASSWORD_TOO_SHORT: CustomErrorType = {
+	message: "Podane hasło jest za krótkie",
+	statusCode: 400,
+}
+
+export const INVALID_EMAIL: CustomErrorType = {
+	message: "Nie poprawny email",
+	statusCode: 400,
+}

@@ -20,6 +20,11 @@ export const FILE_UPLOAD_ERROR: CustomErrorType = {
 	statusCode: 400,
 }
 
+export const FILES_UPLOAD_ERROR: CustomErrorType = {
+	message: "Niepoprawny pliki lub ich brak",
+	statusCode: 400,
+}
+
 export const FILES_VALIDATION_FAILED_MUST_BE_IMAGE_OR_AUDIO: CustomErrorType = {
 	message:
 		"Plik nie może zawierać '/' oraz musi posiadać rozszerzenie .jpg  .jpeg, .png lub .mp3",

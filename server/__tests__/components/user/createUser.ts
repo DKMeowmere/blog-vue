@@ -71,13 +71,12 @@ export async function createUser(app: Express) {
 				.attach("file", "__tests__/fixtures/files/test.jpg")
 
 			const { success } = userSchema.safeParse(body.user)
-
+      
 			expect(statusCode).toBe(201)
 			expect(success).toBeTruthy()
 			expect(body.token).toBeDefined()
 			expect(body.user.fileLocation).toBeDefined()
 			expect(body.user.password).toBe("")
-      //expect file to exist
 		})
 	})
 	describe("given the user payload with too short password", () => {

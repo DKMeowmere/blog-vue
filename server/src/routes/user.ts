@@ -10,12 +10,11 @@ import { uploadFile } from "../middlewares/uploadFile"
 
 export const userRouter = Router()
 
-userRouter.route("/").get(getUsers)
+userRouter.route("/").get(getUsers).post(uploadFile, createUser)
 userRouter
 	.route("/:id")
 	.get(getUser)
 	.get(getUser)
 	.patch(requireAuth, uploadFile, updateUser)
 	.delete(requireAuth, deleteUser)
-userRouter.route("/").post(uploadFile, createUser)
 userRouter.route("/login").post(login)

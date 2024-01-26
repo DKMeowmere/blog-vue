@@ -3,16 +3,20 @@ import { Express } from "express"
 import { beforeEach, it, describe, expect } from "vitest"
 import { userSchema } from "../../../types/user"
 import { generateUser } from "../../fixtures/generateUser"
+import { generateBlog } from "../../fixtures/generateBlog"
 import { User } from "../../../src/models/user"
+import { Blog } from "../../../src/models/blog"
 import { createToken } from "../../../src/utils/createToken"
 
 export async function updateUser(app: Express) {
 	const userPayload = generateUser()
+  const blog = generateBlog(["TEXT"])
 	const { _id, name, biography } = userPayload
 	const token = `Bearer ${createToken(userPayload)}`
 
 	beforeEach(async () => {
-		await User.create(userPayload)
+		await Blog.create(blog)
+		await User.create({ ...userPayload, userBlogs: [blog._id] })
 	})
 
 	describe("given the id of non existing user", () => {
@@ -71,7 +75,8 @@ export async function updateUser(app: Express) {
 			expect(user.password).toBe("")
 			expect(user.name).toBe("UPDATED NAME")
 			expect(user.biography).toBe("UPDATED BIOGRAPHY")
-			//test blogs
+			expect(user.userBlogs[0]._id).toBeDefined()
+
 			const fileRes = await request(app).get(user.fileLocation)
 			expect(fileRes.status).toBe(200)
 		})

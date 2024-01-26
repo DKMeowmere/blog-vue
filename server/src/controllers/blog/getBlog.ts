@@ -1,22 +1,20 @@
 import { Response } from "express"
 import { CustomRequest } from "../../../types/customRequest"
 import { CustomError } from "../../../types/customError"
-import { User } from "../../models/user"
-import { USER_NOT_FOUND } from "../../config/constants/userError"
+import { BLOG_NOT_FOUND } from "../../config/constants/blogError"
+import { Blog } from "../../models/blog"
 import { handleControllerError } from "../../utils/handleControllerError"
 
-export async function getUser(req: CustomRequest, res: Response) {
+export async function getBlog(req: CustomRequest, res: Response) {
 	try {
 		const { id } = req.params
+		const blog = await Blog.findById(id)
 
-		const user = await User.findById(id).populate("userBlogs")
-
-		if (!user) {
-			throw new CustomError(USER_NOT_FOUND)
+		if (!blog) {
+			throw new CustomError(BLOG_NOT_FOUND)
 		}
 
-		user.password = ""
-		res.json(user)
+		res.json(blog)
 	} catch (err: unknown) {
 		handleControllerError(res, err)
 	}

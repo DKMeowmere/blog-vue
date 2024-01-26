@@ -3,7 +3,11 @@ import { QuoteElementType } from "../../../types/blog/quote"
 
 export const quoteElementSchema = new mongoose.Schema<QuoteElementType>({
 	type: "QUOTE",
-	content: {
+	_id: {
+		type: String,
+		default: crypto.randomUUID(),
+	},
+	body: {
 		type: String,
 		required: true,
 		trim: true,

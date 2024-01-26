@@ -1,7 +1,8 @@
 import { z } from "zod"
 
 export const subtitleElementSchema = z.object({
-	content: z.string(),
+	_id: z.string().default(crypto.randomUUID()),
+	body: z.string(),
 	type: z.literal("SUBTITLE"),
 })
 

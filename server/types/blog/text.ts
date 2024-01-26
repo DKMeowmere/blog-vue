@@ -10,7 +10,8 @@ export const textTypes = [
 ] as const
 
 export const textElementSchema = z.object({
-	content: z.string(),
+	_id: z.string().default(crypto.randomUUID()),
+	body: z.string(),
 	type: z.literal("TEXT"),
 	to: z.string().catch(""),
 	textType: z.enum(textTypes),

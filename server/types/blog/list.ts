@@ -1,10 +1,10 @@
 import { z } from "zod"
-import { textSchema } from "./text"
+import { textElementSchema } from "./text"
 
 export const listElementSchema = z.object({
-	title: z.string(),
+	_id: z.string().default(crypto.randomUUID()),
 	type: z.literal("LIST"),
-	listContent: z.array(textSchema),
+	listContent: z.array(textElementSchema),
 })
 
 export type ListElementType = z.infer<typeof listElementSchema>

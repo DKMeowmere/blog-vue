@@ -8,6 +8,7 @@ import { login } from "./components/user/login"
 import { getUsers } from "./components/user/getUsers"
 import { getUser } from "./components/user/getUser"
 import { updateUser } from "./components/user/updateUser"
+import { deleteUser } from "./components/user/deleteUser"
 
 export const app = createServer({ logsFileName: "user", saveLogs: true })
 
@@ -21,8 +22,6 @@ describe("USER /api/user", () => {
 		await request(app).get("/api/reset")
 	})
 	afterAll(async () => {
-		await request(app).get("/api/reset")
-
 		await mongoose.disconnect()
 		await mongoose.connection.close()
 	})
@@ -32,5 +31,5 @@ describe("USER /api/user", () => {
 	describe("POST / createUser", () => createUser(app))
 	describe("POST /login login", () => login(app))
 	describe("PATCH /:id updateUser", () => updateUser(app))
-	describe("DELETE /:id deleteUser", () => updateUser(app))
+	describe("DELETE /:id deleteUser", () => deleteUser(app))
 })
