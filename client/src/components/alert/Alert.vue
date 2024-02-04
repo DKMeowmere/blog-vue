@@ -11,6 +11,7 @@
 		</p>
 		<Icon
 			class="close-icon"
+			data-cy="close-alert-icon"
 			icon="material-symbols:close"
 			@click="deleteAlert(id)"
 		/>
@@ -36,7 +37,10 @@ onMounted(() => {
 	const step = alertLifeTime.value / 100
 
 	const interval = setInterval(() => {
-		if (currentProgress.value === alertLifeTime.value) {
+		if (
+			!countdownBarRef.value ||
+			currentProgress.value === alertLifeTime.value
+		) {
 			clearInterval(interval)
 			deleteAlert(id)
 			return

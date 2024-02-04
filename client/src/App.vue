@@ -20,6 +20,10 @@ const { setupTheme, enqueueAlert } = appStore
 const { theme, isLoading } = storeToRefs(appStore)
 const num = ref(0)
 
+if (window.Cypress) {
+	window.store = { app: appStore }
+}
+
 function addAlert() {
 	num.value++
 	enqueueAlert({

@@ -13,5 +13,7 @@ declare namespace Cypress {
 			url: string,
 			options: Cypress.RequestBody = {}
 		): Cypress.Chainable<any>
+		store(): Cypress.Chainable<any>
+		getAppState(): Cypress.Chainable<any>
 	}
 }

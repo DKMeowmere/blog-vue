@@ -6,6 +6,7 @@ import { fileURLToPath, URL } from "url"
 export default defineConfig({
 	server: {
 		port: 3000,
+		host: true,
 	},
 	plugins: [vue()],
 	build: {
