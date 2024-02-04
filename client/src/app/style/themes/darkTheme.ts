@@ -23,7 +23,7 @@ export const darkTheme: Theme = {
 		contrastText: "#080808",
 		whiteText: "#f8f8f8",
 		blackText: "#080808",
-		main: "#10700b",
+		main: "#faa200",
 		lightMainBg: "#3a3a3a",
 		mainBg: "#282828",
 		darkMainBg: "#1d1d1d",
