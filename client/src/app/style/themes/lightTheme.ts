@@ -23,7 +23,7 @@ export const lightTheme: Theme = {
 		contrastText: "#f8f8f8",
 		whiteText: "#f8f8f8",
 		blackText: "#080808",
-		main: "#faa200",
+		main: "#0f6bff",
 		lightMainBg: "#fff",
 		mainBg: "#e8e8e8",
 		darkMainBg: "#d1d1d1",

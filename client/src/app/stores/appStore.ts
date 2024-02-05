@@ -1,7 +1,8 @@
+import { defineStore } from "pinia"
 import { AppState } from "@backend/types/client/appState"
 import { Alert } from "@backend/types/client/alert"
+import { UserType } from "@backend/types/user"
 import { lightTheme } from "../style/themes/lightTheme"
-import { defineStore } from "pinia"
 import { darkTheme } from "../style/themes/darkTheme"
 
 const initialState: AppState = {
@@ -51,6 +52,9 @@ export const useAppStore = defineStore("app", {
 		},
 		dequeueAlert() {
 			this.alertsQueue.shift()
+		},
+		setUser(user: UserType) {
+			this.user = user
 		},
 	},
 })
