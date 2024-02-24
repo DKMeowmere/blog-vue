@@ -4,6 +4,7 @@ import { CustomRequest } from "../../../types/customRequest"
 import { userValidationSchema } from "../../../types/user"
 import { CustomError } from "../../../types/customError"
 import { SALT_ROUNDS } from "../../config/envVariables"
+import { USER_ALREADY_EXISTS } from "../../config/constants/userError"
 import { User } from "../../models/user"
 import { getZodErrorMessage } from "../../utils/getZodErrorMessage"
 import { handleControllerError } from "../../utils/handleControllerError"
@@ -13,7 +14,16 @@ import { createToken } from "../../utils/createToken"
 export async function createUser(req: CustomRequest, res: Response) {
 	try {
 		const _id = crypto.randomUUID()
-		const result = userValidationSchema.safeParse({ ...req.body, _id })
+		const { email } = req.body
+		const doUserExists = await User.findOne({ email })
+
+		if (doUserExists) {
+			throw new CustomError(USER_ALREADY_EXISTS)
+		}
+		const result = userValidationSchema.safeParse({
+			...req.body,
+			_id,
+		})
 
 		if (!result.success) {
 			throw new CustomError({

@@ -1,13 +1,14 @@
 <template>
 	<nav>
 		<div class="left">
-			<Button v-if="!user" @click="push('/login')">Zaloguj się</Button>
-			<img
+			<Button v-if="!user" @click="push('/user/login')">Zaloguj się</Button>
+			<Avatar
 				v-else
-				:src="user.fileLocation || ''"
+				:src="user.fileLocation || DEFAULT_AVATAR_IMAGE_URL"
 				alt="zdjęcie profilowe"
+				width="50px"
 				class="avatar"
-				@error="setUser({ ...user, fileLocation: DEFAULT_AVATAR_IMAGE_URL })"
+				@click="push(`/user/${user._id}`)"
 			/>
 		</div>
 		<div class="right">
@@ -24,14 +25,14 @@ import { storeToRefs } from "pinia"
 import { useRouter } from "vue-router"
 import { Icon } from "@iconify/vue"
 import { useAppStore } from "../app/stores/appStore"
-import { DEFAULT_AVATAR_IMAGE_URL, SERVER_URL } from "../app/constants/urls.ts"
+import { DEFAULT_AVATAR_IMAGE_URL } from "../app/constants/urls"
 import Button from "./Button.vue"
+import Avatar from "./Avatar.vue"
 
 const appState = useAppStore()
 const { push } = useRouter()
-const { switchTheme, setUser } = appState
+const { switchTheme } = appState
 const { user, theme } = storeToRefs(appState)
-console.log(SERVER_URL)
 </script>
 
 <style lang="scss" scoped>
@@ -57,10 +58,7 @@ nav {
 		left: 30px;
 		gap: 10px;
 		.avatar {
-			width: 50px;
-			aspect-ratio: 1/1;
-			border-radius: 50%;
-			object-fit: cover;
+			cursor: pointer;
 		}
 	}
 	.right {

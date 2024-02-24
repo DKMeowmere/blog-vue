@@ -68,6 +68,7 @@ function getIconName(type: AlertTypes) {
 	padding: 10px 30px 15px 40px;
 	display: flex;
 	align-items: center;
+	z-index: 10000;
 	width: 100%;
 	position: relative;
 	.countdown-bar {
@@ -138,11 +139,6 @@ function getIconName(type: AlertTypes) {
 	}
 	.countdown-bar {
 		background-color: v-bind("theme.colors.infoMain");
-	}
-}
-@media screen and (min-width: $breakpoints-sm) {
-	.alert {
-		width: 400px;
 	}
 }
 </style>

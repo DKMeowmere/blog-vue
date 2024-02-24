@@ -10,18 +10,20 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia"
 import { useAppStore } from "./app/stores/appStore"
+import { useUser } from "./pages/user/hooks/useUser"
 import LoadingScreen from "./components/LoadingScreen.vue"
 import Alerts from "./components/alert/AlertsContainer.vue"
 import Navbar from "./components/Navbar.vue"
 
 const appStore = useAppStore()
+const { loginWithToken } = useUser()
 const { setupTheme } = appStore
 const { theme, isLoading } = storeToRefs(appStore)
 
 if (window.Cypress) {
 	window.store = { app: appStore }
 }
-
+loginWithToken()
 setupTheme()
 </script>
 

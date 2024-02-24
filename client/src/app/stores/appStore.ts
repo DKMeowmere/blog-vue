@@ -11,6 +11,7 @@ const initialState: AppState = {
 	user: null,
 	alertsQueue: [],
 	alertLifeTime: 7000,
+	token: "",
 }
 
 export const useAppStore = defineStore("app", {
@@ -53,8 +54,12 @@ export const useAppStore = defineStore("app", {
 		dequeueAlert() {
 			this.alertsQueue.shift()
 		},
-		setUser(user: UserType) {
+		setUser(user: UserType | null) {
 			this.user = user
+			localStorage.setItem("user", JSON.stringify(user))
+		},
+		setToken(token: string) {
+			this.token = token      
 		},
 	},
 })

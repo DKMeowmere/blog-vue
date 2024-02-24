@@ -1,3 +1,9 @@
+<template>
+  <button>
+    <slot> </slot>
+  </button>
+</template>
+
 <script setup lang="ts">
 import { storeToRefs } from "pinia"
 import { useAppStore } from "../app/stores/appStore"
@@ -18,11 +24,6 @@ const appStore = useAppStore()
 const { theme } = storeToRefs(appStore)
 </script>
 
-<template>
-	<button>
-		<slot> </slot>
-	</button>
-</template>
 
 <style lang="scss" scoped>
 button {

@@ -17,6 +17,7 @@ export async function login(req: CustomRequest, res: Response) {
 	try {
 		const { email, password } = req.body
 		const authorization = req.headers.authorization
+		console.log(req.body)
 
 		if (authorization) {
 			loginWithToken(req, res)
@@ -24,6 +25,7 @@ export async function login(req: CustomRequest, res: Response) {
 		}
 
 		if (!email || !password) {
+      console.log("LOGIN_FAILED")
 			throw new CustomError(LOGIN_FAILED)
 		}
 		const user = await User.findOne({ email })

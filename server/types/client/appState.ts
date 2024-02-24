@@ -8,4 +8,5 @@ export type AppState = {
 	user: UserType | null
 	alertsQueue: Alerts
 	alertLifeTime: number
+  token: string
 }

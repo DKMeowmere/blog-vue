@@ -10,6 +10,11 @@ export const USER_IN_TOKEN_NOT_FOUND: CustomErrorType = {
 	statusCode: 404,
 }
 
+export const USER_ALREADY_EXISTS: CustomErrorType = {
+	message: "Użytkownik o podanym email już istnieje",
+	statusCode: 404,
+}
+
 export const AUTH_NEEDED: CustomErrorType = {
 	message: "Musisz być zalogowany, żeby to zrobić",
 	statusCode: 401,

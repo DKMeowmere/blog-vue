@@ -1,4 +1,3 @@
-import { Alert } from "@backend/types/client/alert"
 import { useAppStore } from "../stores/appStore"
 
 export function useHandleError() {
@@ -9,8 +8,8 @@ export function useHandleError() {
 		endLoading()
 	}
 
-	function handleErrorWithAlert(alert: Omit<Alert, "id">) {
-		enqueueAlert(alert)
+	function handleErrorWithAlert(message: string) {
+		enqueueAlert({ body: message, type: "ERROR" })
 		endLoading()
 	}
 

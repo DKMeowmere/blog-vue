@@ -1,1 +1,6 @@
 export const DEFAULT_ERROR_MESSAGE = "Nieoczekiwany błąd"
+export const EMAIL_MISSING = "Brak emaila"
+export const PASSWORD_MISSING = "Brak hasła"
+export const NAME_MISSING = "Brak nazwy"
+export const FILE_MISSING = "Brak pliku"
+export const FILE_HAVE_TO_BE_IMAGE = "Plik musi być obrazem"

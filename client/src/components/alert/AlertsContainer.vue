@@ -21,7 +21,7 @@ const { alertsQueue } = storeToRefs(appStore)
 .alerts-container {
 	position: fixed;
 	width: 80%;
-	z-index: 10000;
+  max-width: 400px;
 	left: 50%;
 	translate: -50% 0;
 	bottom: 20px;
