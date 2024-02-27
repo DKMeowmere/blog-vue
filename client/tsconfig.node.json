@@ -1,11 +1,11 @@
 {
 	"compilerOptions": {
-		"composite": true,
 		"skipLibCheck": true,
 		"module": "ESNext",
 		"moduleResolution": "bundler",
 		"allowSyntheticDefaultImports": true,
-    "types": ["node", "cypress"]
+		"types": ["node", "cypress"],
+		"paths": { "@backend/*": ["../server/*"] }
 	},
-	"include": ["vite.config.ts", "cypress"]
+	"include": ["vite.config.ts", "cypress", "package.json"]
 }

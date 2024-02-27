@@ -1,7 +1,9 @@
 <template>
 	<nav>
 		<div class="left">
-			<Button v-if="!user" @click="push('/user/login')">Zaloguj się</Button>
+			<Button v-if="!user" @click="push('/user/login')" data-cy="login-link">
+				Zaloguj się
+			</Button>
 			<Avatar
 				v-else
 				:src="user.fileLocation || DEFAULT_AVATAR_IMAGE_URL"
@@ -9,6 +11,7 @@
 				width="50px"
 				class="avatar"
 				@click="push(`/user/${user._id}`)"
+        data-cy="avatar-profile-link"
 			/>
 		</div>
 		<div class="right">

@@ -17,7 +17,6 @@ export async function login(req: CustomRequest, res: Response) {
 	try {
 		const { email, password } = req.body
 		const authorization = req.headers.authorization
-		console.log(req.body)
 
 		if (authorization) {
 			loginWithToken(req, res)

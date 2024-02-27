@@ -2,8 +2,6 @@ describe("alerts", () => {
 	it("should add and remove alerts properly", () => {
 		cy.visit("/")
 
-		console.log(cy.getAppState().its("alertLifeTime"))
-
 		cy.getAppState().invoke("enqueueAlert", {
 			body: "info alert",
 			type: "INFO",

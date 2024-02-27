@@ -1,5 +1,4 @@
 import { useCookies } from "vue3-cookies"
-import { useRouter } from "vue-router"
 import { useAppStore } from "../../../app/stores/appStore"
 import { getFileFromUrl } from "../../../app/utils/getFileFromUrl"
 import { useHandleError } from "../../../app/hooks/useHandleError"
@@ -22,7 +21,6 @@ export function useUser() {
 	const { setUser, startLoading, endLoading, enqueueAlert, setToken } =
 		useAppStore()
 	const { cookies } = useCookies()
-	const { push } = useRouter()
 
 	async function getUser(id: string) {
 		try {
@@ -52,10 +50,7 @@ export function useUser() {
 			}
 
 			const body = JSON.stringify({ email, password })
-			console.log("SRBIJA")
-			console.log(email)
-			console.log(password)
-			console.log(body)
+
 			const res = await fetch(`${SERVER_URL}/api/user/login`, {
 				method: "POST",
 				body,
@@ -74,6 +69,7 @@ export function useUser() {
 			cookies.set("token", token, "28d")
 			setToken(token)
 			endLoading()
+      return user
 		} catch (err: unknown) {
 			handleErrorWithAlert(err as string)
 		}
@@ -104,6 +100,7 @@ export function useUser() {
 			cookies.set("token", token, "28d")
 			setToken(token)
 			endLoading()
+      return user
 		} catch {
 			handleError()
 		}
@@ -170,7 +167,7 @@ export function useUser() {
 			cookies.set("token", token, "28d")
 			setToken(token)
 			endLoading()
-			push("/")
+      return user
 		} catch (err: unknown) {
 			handleErrorWithAlert(err as string)
 		}
@@ -216,7 +213,6 @@ export function useUser() {
 			enqueueAlert(USER_UPDATE_SUCCESSFUL)
 			setUser(data)
 			endLoading()
-			push("/")
 		} catch (err: unknown) {
 			handleErrorWithAlert(err as string)
 		}

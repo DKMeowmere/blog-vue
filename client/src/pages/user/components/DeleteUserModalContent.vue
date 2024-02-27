@@ -6,6 +6,7 @@
 		:bg-color="theme.colors.errorMain"
 		width="80%"
 		max-width="500px"
+		data-cy="delete-account-btn"
 	>
 		Usuń konto
 	</Button>

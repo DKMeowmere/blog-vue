@@ -1,15 +1,24 @@
 <template>
 	<article v-if="user">
-		<h1>{{ user.name }}</h1>
+		<h1 class="user-name" data-cy="user-name">{{ user.name }}</h1>
 		<Avatar
 			alt="Zdjęcie profilowe"
 			:src="user.fileLocation || ''"
 			width="60%"
+			data-cy="user-avatar"
 		/>
-		<p class="biography">{{ user.biography }}</p>
+		<p class="biography" data-cy="user-biography">{{ user.biography }}</p>
 		<template v-if="isUserAccountOwner">
-			<Button width="60%" @click="push(`/user/${id}/update`)"> Edytuj </Button>
-			<Button width="60%" @click="logout"> Wyloguj się </Button>
+			<Button
+				width="60%"
+				@click="push(`/user/${id}/update`)"
+				data-cy="update-link"
+			>
+				Edytuj
+			</Button>
+			<Button width="60%" @click="logout" data-cy="logout-btn">
+				Wyloguj się
+			</Button>
 		</template>
 	</article>
 </template>
@@ -58,7 +67,7 @@ article {
 	width: 90%;
 	max-width: 500px;
 	gap: 40px;
-	h1 {
+	.user-name {
 		font-size: 1.6rem;
 	}
 	.biography {

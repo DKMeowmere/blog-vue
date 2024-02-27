@@ -15,5 +15,7 @@ declare namespace Cypress {
 		): Cypress.Chainable<any>
 		store(): Cypress.Chainable<any>
 		getAppState(): Cypress.Chainable<any>
+		createUser(): void
+		uploadFile(selector: string, filename: string): Cypress.Chainable<any>
 	}
 }

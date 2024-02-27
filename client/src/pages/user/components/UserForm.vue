@@ -5,25 +5,29 @@
 	<form @submit.prevent="handleSubmit">
 		<template v-if="type !== 'LOGIN'">
 			<p>Nazwa</p>
-			<input type="text" v-model="name" />
+			<input type="text" v-model="name" data-cy="name-input" />
 		</template>
 		<template v-if="type !== 'UPDATE'">
 			<p>Email</p>
-			<input type="text" v-model="email" />
+			<input type="text" v-model="email" data-cy="email-input" />
 		</template>
 		<template v-if="type !== 'UPDATE'">
 			<p>Hasło</p>
-			<PasswordInput v-model="password" />
+			<PasswordInput v-model="password" data-cy="password-input" />
 		</template>
 		<template v-if="type === 'UPDATE'">
 			<p>Biografia</p>
-			<textarea spellcheck="false" v-model="biography"></textarea>
+			<textarea
+				spellcheck="false"
+				v-model="biography"
+				data-cy="biography-input"
+			></textarea>
 		</template>
 		<template v-if="type !== 'LOGIN'">
 			<p>Zdjęcie profilowe</p>
 			<FileInput
 				id="user-file-input"
-				data-cy="user-file-input"
+				data-cy="file-input"
 				text="Dodaj
 			zdjęcie profilowe"
 				:change-cb="uploadFile"
@@ -33,7 +37,12 @@
 		<Button type="submit" class="submit-btn" data-cy="submit-btn">
 			Zatwierdź
 		</Button>
-		<Button v-if="type === 'LOGIN'" type="button" @click="push('/user/create')">
+		<Button
+			v-if="type === 'LOGIN'"
+			type="button"
+			@click="push('/user/create')"
+			data-cy="create-account-link"
+		>
 			Nie masz konta? Stworź teraz
 		</Button>
 		<template v-if="type === 'UPDATE'">
@@ -41,6 +50,7 @@
 				type="button"
 				@click="isModalOpen = true"
 				:bg-color="theme.colors.errorMain"
+				data-cy="open-delete-account-modal-btn"
 			>
 				Usuń konto
 			</Button>
@@ -101,17 +111,18 @@ function uploadFile(e: any) {
 		handleErrorWithAlert(err as string)
 	}
 }
-function handleSubmit() {
+async function handleSubmit() {
 	if (type === "CREATE") {
-		createUser({
+		const { _id } = await createUser({
 			email: email.value,
 			name: name.value,
 			password: password.value,
 			fileLocation: fileLocation.value,
 			fileName: fileName.value,
 		})
+		push(`/user/${_id}`)
 	} else if (type === "UPDATE") {
-		updateUser({
+		await updateUser({
 			_id: id.toString(),
 			biography: biography.value,
 			fileLocation: fileLocation.value,
@@ -119,7 +130,8 @@ function handleSubmit() {
 			fileName: fileName.value,
 		})
 	} else if (type === "LOGIN") {
-		login(email.value, password.value)
+		const { _id } = await login(email.value, password.value)
+		push(`/user/${_id}`)
 	}
 }
 </script>
