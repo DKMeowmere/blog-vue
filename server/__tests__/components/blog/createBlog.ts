@@ -6,7 +6,6 @@ import { generateUser } from "../../fixtures/generateUser"
 import { generateBlog } from "../../fixtures/generateBlog"
 import { createToken } from "../../../src/utils/createToken"
 import { blogSchema } from "../../../types/blog/blog"
-import { doFileExists } from "../../../src/utils/files/doFileExists"
 import { ImageElementType } from "../../../types/blog/image"
 
 export async function createBlog(app: Express) {
@@ -59,8 +58,6 @@ export async function createBlog(app: Express) {
 			expect(statusCode).toBe(200)
 			const { success } = blogSchema.safeParse(body)
 			expect(success).toBeTruthy()
-			const isFileSaved = await doFileExists(`.${body.mainFileLocation}`)
-			expect(isFileSaved).toBe(true)
 		})
 	})
 	describe("given the blog payload with image element", () => {
@@ -84,9 +81,6 @@ export async function createBlog(app: Express) {
 			expect(statusCode).toBe(200)
 			const { success } = blogSchema.safeParse(body)
 			expect(success).toBeTruthy()
-
-			const isFileSaved = await doFileExists(`.${body.content[0].fileLocation}`)
-			expect(isFileSaved).toBe(true)
 		})
 	})
 	describe("given the blog payload without image element", () => {

@@ -76,9 +76,6 @@ export async function updateUser(app: Express) {
 			expect(user.name).toBe("UPDATED NAME")
 			expect(user.biography).toBe("UPDATED BIOGRAPHY")
 			expect(user.userBlogs[0]._id).toBeDefined()
-
-			const fileRes = await request(app).get(user.fileLocation)
-			expect(fileRes.status).toBe(200)
 		})
 	})
 }

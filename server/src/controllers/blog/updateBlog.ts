@@ -37,8 +37,10 @@ export async function updateBlog(req: CustomRequest, res: Response) {
 		if (source) {
 			blog.source = source
 		}
+
 		if (tags) {
-			blog.tags = tags
+			const uniqueTags: string[] = Array.from(new Set(JSON.parse(tags)))
+			blog.tags = uniqueTags
 		}
 
 		const result = blogValidationSchema.safeParse(blog)

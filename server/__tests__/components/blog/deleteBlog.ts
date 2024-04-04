@@ -41,6 +41,7 @@ export async function deleteBlog(app: Express) {
 			.field("mainFileLocation", "test.png")
 			.attach("files", "__tests__/fixtures/files/test.png")
 			.attach("files", "__tests__/fixtures/files/test.jpg")
+    
 		blogId = blog._id
 	})
 
@@ -84,7 +85,9 @@ export async function deleteBlog(app: Express) {
 			expect(blog).toBeDefined()
 
 			const isFileSaved = await doFileExists(`.${blog.mainFileLocation}`)
-			const isFileSaved2 = await doFileExists(`.${blog.content[1].fileLocation}`)
+			const isFileSaved2 = await doFileExists(
+				`.${blog.content[1].fileLocation}`
+			)
 			expect(isFileSaved).toBe(false)
 			expect(isFileSaved2).toBe(false)
 		})

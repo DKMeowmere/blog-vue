@@ -13,22 +13,28 @@ export async function createElement(req: CustomRequest, res: Response) {
 	try {
 		const { id } = req.params
 		const element = req.body
+		element._id = crypto.randomUUID()
 		const blog = await Blog.findById(id)
+
 		if (!blog) {
-      throw new CustomError(BLOG_NOT_FOUND)
-		}
-    
-		if (!req.user) {
-      throw new CustomError(AUTH_NEEDED)
-		}
-    
-		const authorizationError = authorizate(blog.author, req.user._id)
-    
-		if (authorizationError) {
-      throw new CustomError(authorizationError)
+			throw new CustomError(BLOG_NOT_FOUND)
 		}
 
+		if (!req.user) {
+			throw new CustomError(AUTH_NEEDED)
+		}
+
+		const authorizationError = authorizate(blog.author, req.user._id)
+
+		if (authorizationError) {
+			throw new CustomError(authorizationError)
+		}
+
+		if (element.type === "LIST") {
+			element.listContent = JSON.parse(element.listContent)
+		}
 		const validationError = validateElement(element)
+
 		if (validationError) {
 			throw new CustomError(validationError)
 		}
@@ -37,9 +43,10 @@ export async function createElement(req: CustomRequest, res: Response) {
 			const fileLocation = await writeIdFile(element._id, req.file)
 			element.fileLocation = fileLocation
 		}
-
 		blog.content.push(element)
+		blog.markModified("content")
 		await blog.save()
+
 		res.status(201).json(blog)
 	} catch (err: unknown) {
 		handleControllerError(res, err)

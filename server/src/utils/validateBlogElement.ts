@@ -9,7 +9,6 @@ import { getZodErrorMessage } from "./getZodErrorMessage"
 import { CustomError } from "../../types/customError"
 
 export function validateElement(element: BlogElement) {
-
 	if (element.type === "TEXT") {
 		const result = textElementSchema.safeParse(element)
 
@@ -28,6 +27,9 @@ export function validateElement(element: BlogElement) {
 				statusCode: 400,
 			})
 		}
+
+		const newElement = result.data
+		element.fileLocation = newElement.fileLocation
 	} else if (element.type === "LIST") {
 		const result = listElementSchema.safeParse(element)
 

@@ -4,13 +4,13 @@ import { ElementType } from "../../../types/blog/element"
 import { blogValidationSchema } from "../../../types/blog/blog"
 import { CustomError } from "../../../types/customError"
 import { Blog } from "../../models/blog"
+import { User } from "../../models/user"
 import { FILES_UPLOAD_ERROR } from "../../config/constants/universalErrors"
 import { MAIN_BLOG_FILE_MISSING } from "../../config/constants/blogError"
 import { handleControllerError } from "../../utils/handleControllerError"
 import { createFilesMap } from "../../utils/files/createFilesMap"
 import { writeIdFile } from "../../utils/files/writeIdFile"
 import { getZodErrorMessage } from "../../utils/getZodErrorMessage"
-import { User } from "../../models/user"
 
 export async function createBlog(req: CustomRequest, res: Response) {
 	try {
@@ -19,12 +19,15 @@ export async function createBlog(req: CustomRequest, res: Response) {
 			(element: ElementType) => ({ ...element, _id: crypto.randomUUID() })
 		)
 		const authorId = req.user?._id
+		const uniqueTags = Array.from(new Set(JSON.parse(req.body.tags || '[]')))
+
 		const result = blogValidationSchema.safeParse({
 			...req.body,
 			_id,
 			author: authorId,
 			content,
 			likes: 0,
+			tags: uniqueTags,
 		})
 
 		if (!result.success) {
@@ -37,7 +40,6 @@ export async function createBlog(req: CustomRequest, res: Response) {
 		if (!req.files || !Array.isArray(req.files)) {
 			throw new CustomError(FILES_UPLOAD_ERROR)
 		}
-
 		const blog = result.data
 		const files = createFilesMap(req.files as Express.Multer.File[])
 		const mainFile = files.get(blog.mainFileLocation)

@@ -2,7 +2,6 @@ import { Response } from "express"
 import { CustomRequest } from "../../../types/customRequest"
 import { CustomError } from "../../../types/customError"
 import {
-  BLOG_CONTENT_MUST_NOT_BE_EMPTY,
 	BLOG_NOT_FOUND,
 	ELEMENT_NOT_FOUND,
 } from "../../config/constants/blogError"
@@ -30,11 +29,6 @@ export async function deleteElement(req: CustomRequest, res: Response) {
 			throw new CustomError(authorizationError)
 		}
 
-    if(blog.content.length === 1){
-      throw new CustomError(BLOG_CONTENT_MUST_NOT_BE_EMPTY)
-
-    }
-
 		const elementIndex = blog.content.findIndex(
 			prevElement => (prevElement._id === elementId)
 		)
@@ -49,6 +43,7 @@ export async function deleteElement(req: CustomRequest, res: Response) {
 		}
 
 		blog.content.splice(elementIndex, 1)
+    blog.markModified("content")
 		await blog.save()
 		res.json(blog)
 	} catch (err: unknown) {

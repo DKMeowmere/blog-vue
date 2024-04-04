@@ -54,6 +54,7 @@ export async function updateElement(req: CustomRequest, res: Response) {
 			element.fileLocation = fileLocation
 		}
 
+    blog.markModified("content")
 		await blog.save()
 		res.json(blog)
 	} catch (err: unknown) {

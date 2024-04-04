@@ -13,7 +13,7 @@ export async function createElement(app: Express) {
 	const token = `Bearer ${createToken(user)}`
 	const blog = generateBlog(["TEXT"])
 	const { _id } = blog
-	const { body, type, textType } = textElement
+	const { body, type } = textElement
 
 	beforeEach(async () => {
 		await Blog.create({ ...blog, author: user._id })
@@ -27,7 +27,6 @@ export async function createElement(app: Express) {
 				.set("content-type", "multipart/form-data")
 				.field("body", body)
 				.field("type", type)
-				.field("textType", textType)
 
 			expect(statusCode).toBe(401)
 		})
@@ -44,7 +43,6 @@ export async function createElement(app: Express) {
 				.set("Authorization", token2)
 				.field("body", body)
 				.field("type", type)
-				.field("textType", textType)
 
 			expect(statusCode).toBe(403)
 		})
@@ -57,7 +55,6 @@ export async function createElement(app: Express) {
 				.set("Authorization", token)
 				.field("body", body)
 				.field("type", type)
-				.field("textType", textType)
 
 			const { success } = blogSchema.safeParse(blog)
 			expect(statusCode).toBe(201)

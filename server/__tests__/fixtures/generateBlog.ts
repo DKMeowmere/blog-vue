@@ -10,8 +10,6 @@ export const textElement: TextElementType = {
 	_id: crypto.randomUUID(),
 	type: "TEXT",
 	body: "Text content",
-	textType: "DEFAULT",
-	to: "",
 }
 
 export const imageElement: ImageElementType = {

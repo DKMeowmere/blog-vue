@@ -56,7 +56,7 @@ export async function deleteElement(app: Express) {
 			const { statusCode, body: blog } = await request(app)
 				.delete(`/api/blog/${blogId}/${elementId}`)
 				.set("Authorization", token)
-			console.log(blog)
+
 			const { success } = blogSchema.safeParse(blog)
 			expect(statusCode).toBe(200)
 			expect(success).toBeTruthy()

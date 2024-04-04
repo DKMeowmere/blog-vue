@@ -5,8 +5,8 @@ import { subtitleElementSchema } from "./subtitle"
 import { listElementSchema } from "./list"
 import { quoteElementSchema } from "./quote"
 import {
-	BLOG_CONTENT_MUST_NOT_BE_EMPTY,
 	MAX_BLOG_TITLE_LENGTH_EXCEEDED,
+	TAGS_MUST_BE_UNIQUE,
 } from "../../src/config/constants/blogError"
 
 export type BlogElementTypes = "TEXT" | "IMAGE" | "LIST" | "SUBTITLE" | "QUOTE"
@@ -36,9 +36,12 @@ export const blogValidationSchema = blogSchema.extend({
 	title: z
 		.string()
 		.max(20, { message: MAX_BLOG_TITLE_LENGTH_EXCEEDED.message }),
-	content: z
-		.array(blogElementSchema)
-		.min(1, { message: BLOG_CONTENT_MUST_NOT_BE_EMPTY.message }),
+	tags: z
+		.array(z.string())
+		.catch([])
+		.refine(tags => new Set(tags).size === tags.length, {
+			message: TAGS_MUST_BE_UNIQUE.message,
+		}),
 })
 
 export type BlogElement = z.infer<typeof blogElementSchema>

@@ -11,7 +11,12 @@ export const ELEMENT_NOT_FOUND: CustomErrorType = {
 }
 
 export const MAX_BLOG_TITLE_LENGTH_EXCEEDED: CustomErrorType = {
-	message: "Maksymalna długość nazwy użytkownika to 20 znaków",
+	message: "Maksymalna długość nazwy bloga to 20 znaków",
+	statusCode: 400,
+}
+
+export const TAGS_MUST_BE_UNIQUE: CustomErrorType = {
+	message: "Tagi nie mogą się powtarzać",
 	statusCode: 400,
 }
 
@@ -21,6 +26,6 @@ export const BLOG_CONTENT_MUST_NOT_BE_EMPTY: CustomErrorType = {
 }
 
 export const MAIN_BLOG_FILE_MISSING: CustomErrorType = {
-	message: "Maksymalna długość nazwy użytkownika to 20 znaków",
+	message: "Brak głównego pliku",
 	statusCode: 400,
 }
