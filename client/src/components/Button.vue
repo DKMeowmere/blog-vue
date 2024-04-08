@@ -1,7 +1,7 @@
 <template>
-  <button>
-    <slot> </slot>
-  </button>
+	<button :type="type || 'button'">
+		<slot> </slot>
+	</button>
 </template>
 
 <script setup lang="ts">
@@ -12,6 +12,7 @@ type Props = {
 	width?: string
 	maxWidth?: string
 	height?: string
+	type?: "button" | "submit" | "reset"
 	bgColor?: string
 	textColor?: string
 	onlyIcon?: boolean
@@ -23,7 +24,6 @@ const { width, maxWidth, height, bgColor, onlyIcon, textColor, disabled } =
 const appStore = useAppStore()
 const { theme } = storeToRefs(appStore)
 </script>
-
 
 <style lang="scss" scoped>
 button {

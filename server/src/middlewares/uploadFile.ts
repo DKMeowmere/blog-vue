@@ -27,7 +27,7 @@ export async function uploadFile(
 					cb(null, false)
 					return
 				}
-
+        
 				const fileExtension = path.extname(file.originalname)
 
 				if (allowedFileExtensions.includes(fileExtension)) {

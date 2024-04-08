@@ -5,13 +5,13 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
+import { storeToRefs } from "pinia"
 import { useRoute, useRouter } from "vue-router"
 import { UserType } from "@backend/types/user"
 import { useAppStore } from "../../app/stores/appStore"
 import { ONLY_SELF_ACCOUNT_UPDATE_IS_ALLOWED } from "../../app/constants/alerts"
 import { useUser } from "./hooks/useUser"
 import UserForm from "./components/UserForm.vue"
-import { storeToRefs } from "pinia"
 
 const { push } = useRouter()
 const { params } = useRoute()

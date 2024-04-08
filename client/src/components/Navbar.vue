@@ -11,10 +11,14 @@
 				width="50px"
 				class="avatar"
 				@click="push(`/user/${user._id}`)"
-        data-cy="avatar-profile-link"
+				data-cy="avatar-profile-link"
+				:key="user.fileLocation || undefined"
 			/>
 		</div>
 		<div class="right">
+			<div class="icon-container" @click="push('/')">
+				<Icon v-if="showHomeIcon" icon="material-symbols:home" />
+			</div>
 			<div class="icon-container" @click="switchTheme()">
 				<Icon v-if="theme.type === 'LIGHT'" icon="ph:sun-fill" />
 				<Icon v-else icon="ph:moon-fill" />
@@ -34,6 +38,7 @@ import Avatar from "./Avatar.vue"
 
 const appState = useAppStore()
 const { push } = useRouter()
+const showHomeIcon = location.pathname !== "/"
 const { switchTheme } = appState
 const { user, theme } = storeToRefs(appState)
 </script>

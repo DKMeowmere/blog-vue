@@ -1,7 +1,11 @@
 <template>
 	<teleport to="#alerts">
 		<section class="alerts-container">
-			<Alert v-for="alert in alertsQueue" :key="alert.id" :alert="alert" />
+			<Alert
+				v-for="alert in alertsQueue"
+				:key="alert.id"
+				:alert="alert"
+			/>
 		</section>
 	</teleport>
 </template>
@@ -9,7 +13,7 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia"
 import { useAppStore } from "../../app/stores/appStore"
-import Alert  from "./Alert.vue"
+import Alert from "./Alert.vue"
 
 const appStore = useAppStore()
 const { alertsQueue } = storeToRefs(appStore)
@@ -21,7 +25,7 @@ const { alertsQueue } = storeToRefs(appStore)
 .alerts-container {
 	position: fixed;
 	width: 80%;
-  max-width: 400px;
+	max-width: 400px;
 	left: 50%;
 	translate: -50% 0;
 	bottom: 20px;

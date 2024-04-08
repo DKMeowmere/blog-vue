@@ -24,7 +24,7 @@ Cypress.Commands.add("createUser", () => {
 	cy.getBySel("name-input").type(user.name)
 	cy.getBySel("email-input").type(`${crypto.randomUUID()}${user.email}`)
 	cy.getBySel("password-input").type(user.password)
-	cy.uploadFile("file-input", "bosanskaZastava.png")
+	cy.uploadFile("file-input", "defaultAvatar.jpg")
 	cy.getBySel("submit-btn").click()
 })
 Cypress.Commands.add("uploadFile", (selector, filename) => {

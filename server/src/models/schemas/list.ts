@@ -8,6 +8,11 @@ export const listElementSchema = new mongoose.Schema<ListElementType>({
 		default: crypto.randomUUID(),
 	},
 	type: "LIST",
+	title: {
+		type: String,
+		required: true,
+		default: "",
+	},
 	listContent: {
 		type: [textElementSchema],
 		required: true,

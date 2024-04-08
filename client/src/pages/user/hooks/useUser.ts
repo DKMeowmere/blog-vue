@@ -15,6 +15,7 @@ import {
 	USER_UPDATE_SUCCESSFUL,
 	USER_DELETION_SUCCESSFUL,
 } from "../../../app/constants/alerts"
+import { getFormData } from "../../../app/utils/getFormData"
 
 export function useUser() {
 	const { handleErrorWithAlert, handleError } = useHandleError()
@@ -24,6 +25,7 @@ export function useUser() {
 
 	async function getUser(id: string) {
 		try {
+			startLoading()
 			const res = await fetch(`${SERVER_URL}/api/user/${id}`)
 			const data = await res.json()
 
@@ -69,7 +71,7 @@ export function useUser() {
 			cookies.set("token", token, "28d")
 			setToken(token)
 			endLoading()
-      return user
+			return user
 		} catch (err: unknown) {
 			handleErrorWithAlert(err as string)
 		}
@@ -93,6 +95,7 @@ export function useUser() {
 			const { token, user, error } = await res.json()
 
 			if (!res.ok) {
+        cookies.remove("token")
 				throw new Error(error)
 			}
 
@@ -100,7 +103,7 @@ export function useUser() {
 			cookies.set("token", token, "28d")
 			setToken(token)
 			endLoading()
-      return user
+			return user
 		} catch {
 			handleError()
 		}
@@ -144,13 +147,12 @@ export function useUser() {
 				throw new Error(FILE_MISSING)
 			}
 
-			const body = new FormData()
-			body.append("name", name)
-			body.append("email", email)
-			body.append("password", password)
-			body.append("biography", "")
 			const file = await getFileFromUrl(fileLocation, fileName)
-			file && body.append("file", file)
+			const body = getFormData(
+				{ name, email, password, biography: "" },
+				"file",
+				[file || null]
+			)
 
 			const res = await fetch(`${SERVER_URL}/api/user`, {
 				method: "POST",
@@ -167,7 +169,7 @@ export function useUser() {
 			cookies.set("token", token, "28d")
 			setToken(token)
 			endLoading()
-      return user
+			return user
 		} catch (err: unknown) {
 			handleErrorWithAlert(err as string)
 		}
@@ -191,11 +193,12 @@ export function useUser() {
 		try {
 			startLoading()
 
-			const body = new FormData()
-			body.append("name", name)
-			body.append("biography", biography)
+			if (!name) {
+				throw new Error(NAME_MISSING)
+			}
+
 			const file = await getFileFromUrl(fileLocation, fileName)
-			file && body.append("file", file)
+			const body = getFormData({ name, biography }, "file", [file || null])
 
 			const res = await fetch(`${SERVER_URL}/api/user/${_id}`, {
 				method: "PATCH",
@@ -211,6 +214,7 @@ export function useUser() {
 			}
 
 			enqueueAlert(USER_UPDATE_SUCCESSFUL)
+			setUser(null)
 			setUser(data)
 			endLoading()
 		} catch (err: unknown) {

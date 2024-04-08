@@ -9,7 +9,10 @@ export function useHandleError() {
 	}
 
 	function handleErrorWithAlert(message: string) {
-		enqueueAlert({ body: message, type: "ERROR" })
+		enqueueAlert({
+			body: message,
+			type: "ERROR",
+		})
 		endLoading()
 	}
 

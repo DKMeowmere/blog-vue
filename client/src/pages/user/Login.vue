@@ -14,8 +14,10 @@ const appState = useAppStore()
 const { enqueueAlert } = appState
 const { user } = storeToRefs(appState)
 
-if (user.value) {
-	enqueueAlert(ALREADY_LOGGED_IN)
-	push(`/user/${user.value._id}`)
-}
+setTimeout(() => {
+	if (user.value) {
+		enqueueAlert(ALREADY_LOGGED_IN)
+		push(`/user/${user.value._id}`)
+	}
+}, 500)
 </script>

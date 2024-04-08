@@ -59,3 +59,8 @@ export const INVALID_EMAIL: CustomErrorType = {
 	message: "Nie poprawny email",
 	statusCode: 400,
 }
+
+export const INVALID_NAME: CustomErrorType = {
+	message: "Nie poprawna nazwa",
+	statusCode: 400,
+}

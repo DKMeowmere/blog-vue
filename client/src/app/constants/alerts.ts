@@ -36,3 +36,33 @@ export const USER_NOT_FOUND: AlertWithoutId = {
 	body: "Nie znaleziono użytkownika",
 	type: "ERROR",
 }
+
+export const TAGS_HAVE_TO_BE_UNIQUE: AlertWithoutId = {
+	body: "Tagi nie mogą się powtarzać",
+	type: "INFO",
+}
+
+export const BLOG_NOT_FOUND: AlertWithoutId = {
+	body: "Nie znaleziono bloga o podanym id",
+	type: "WARNING",
+}
+
+export const BLOG_CREATION_SUCCESSFUL: AlertWithoutId = {
+	body: "Utworzono bloga pomyślnie",
+	type: "SUCCESS",
+}
+
+export const BLOG_UPDATE_SUCCESSFUL: AlertWithoutId = {
+	body: "Zaaktualizowano bloga pomyślnie",
+	type: "SUCCESS",
+}
+
+export const BLOG_DELETION_SUCCESSFUL: AlertWithoutId = {
+	body: "Usunięto bloga pomyślnie",
+	type: "SUCCESS",
+}
+
+export const UPDATE_FORBIDDEN: AlertWithoutId = {
+	body: "Nie możesz edytować tego zasobu",
+	type: "WARNING",
+}

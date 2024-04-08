@@ -2,7 +2,7 @@ import { Response } from "express"
 import { CustomRequest } from "../../../types/customRequest"
 import { CustomError } from "../../../types/customError"
 import { User } from "../../models/user"
-import { USER_NOT_FOUND } from "../../config/constants/userError"
+import { INVALID_NAME, USER_NOT_FOUND } from "../../config/constants/userError"
 import { handleControllerError } from "../../utils/handleControllerError"
 import { writeIdFile } from "../../utils/files/writeIdFile"
 import { authorizate } from "../../utils/authorize"
@@ -25,8 +25,8 @@ export async function updateUser(req: CustomRequest, res: Response) {
 		}
 
 		if (name) {
-			if (name.length > 20) {
-				throw new CustomError(USER_NOT_FOUND)
+			if (name.length > 20 || !name) {
+				throw new CustomError(INVALID_NAME)
 			}
 
 			user.name = name

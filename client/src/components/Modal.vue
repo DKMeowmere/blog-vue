@@ -1,10 +1,11 @@
 <template>
 	<teleport to="#modal">
-		<div class="modal-container" @click="emit('close')">
+		<div class="modal-container">
 			<Icon
 				icon="material-symbols:close"
 				class="close-btn"
 				data-cy="close-btn"
+				@click="emit('close')"
 			/>
 			<div class="content" @click.stop>
 				<slot> </slot>
@@ -14,11 +15,15 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted } from "vue"
+import { onMounted, onUnmounted, onUpdated } from "vue"
 import { Icon } from "@iconify/vue"
 const emit = defineEmits(["close"])
 
 onMounted(() => {
+	document.body.style.overflow = "hidden"
+})
+
+onUpdated(() => {
 	document.body.style.overflow = "hidden"
 })
 
@@ -52,10 +57,9 @@ onUnmounted(() => {
 		width: 90%;
 		max-width: 800px;
 		background-color: #fff;
-		padding: 20px;
 		border-radius: 20px;
 		height: calc(80vh - 40px);
-		overflow-y: scroll;
+		overflow-y: auto;
 		display: flex;
 		justify-content: center;
 		align-items: center;

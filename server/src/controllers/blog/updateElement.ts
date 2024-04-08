@@ -16,6 +16,7 @@ export async function updateElement(req: CustomRequest, res: Response) {
 	try {
 		const { blogId, elementId } = req.params
 		const element = req.body
+    element._id = elementId
 		const blog = await Blog.findById(blogId)
 
 		if (!blog) {
@@ -32,6 +33,9 @@ export async function updateElement(req: CustomRequest, res: Response) {
 			throw new CustomError(authorizationError)
 		}
 
+    if (element.type === "LIST") {
+			element.listContent = JSON.parse(element.listContent)
+		}
 		const validationError = validateElement(element)
 
 		if (validationError) {
@@ -47,13 +51,13 @@ export async function updateElement(req: CustomRequest, res: Response) {
 		}
 
 		const prevElementId = blog.content[elementIndex]._id
-		blog.content[elementIndex] = { ...element, _id: prevElementId }
-
+    
 		if (req.file) {
-			const fileLocation = await writeIdFile(element._id, req.file)
+      const fileLocation = await writeIdFile(element._id, req.file)
 			element.fileLocation = fileLocation
 		}
-
+    
+    blog.content[elementIndex] = { ...element, _id: prevElementId }
     blog.markModified("content")
 		await blog.save()
 		res.json(blog)

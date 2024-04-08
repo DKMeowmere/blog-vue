@@ -46,15 +46,15 @@ context("user", () => {
 
 			cy.getBySel("avatar-profile-link").click()
 			cy.getBySel("update-link").click()
-			cy.getBySel("name-input").clear().type("sarajevo")
-			cy.uploadFile("file-input", "hercegBosnaZastava.png")
-			cy.getBySel("biography-input").type("zdravo")
+			cy.getBySel("name-input").clear().type("name...")
+			cy.uploadFile("file-input", "defaultAvatar2.png")
+			cy.getBySel("biography-input").type("test...")
 
 			cy.getBySel("submit-btn").click()
 			cy.getBySel("avatar-profile-link").click()
 
-      cy.getBySel("user-name").should("have.text", "sarajevo")
-      cy.getBySel("user-biography").should("have.text", "zdravo")
+      cy.getBySel("user-name").should("have.text", "name...")
+      cy.getBySel("user-biography").should("have.text", "test...")
 		})
 	})
 })

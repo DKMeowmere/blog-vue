@@ -49,16 +49,20 @@ export async function login(req: CustomRequest, res: Response) {
 }
 
 async function loginWithToken(req: CustomRequest, res: Response) {
-	const authorization = req.headers.authorization
-	const token = authorization?.split(" ")[1] || ""
-	const payload = jwt.verify(token, TOKEN_SECRET) as JwtPayload
-	const user = await User.findById(payload._id)
+	try {
+		const authorization = req.headers.authorization
+		const token = authorization?.split(" ")[1] || ""
+		const payload = jwt.verify(token, TOKEN_SECRET) as JwtPayload
+		const user = await User.findById(payload._id)
 
-	if (!user) {
-		throw new CustomError(USER_IN_TOKEN_NOT_FOUND)
+		if (!user) {
+      throw new CustomError(USER_IN_TOKEN_NOT_FOUND)
+		}
+    
+		const newToken = createToken(user.toJSON())
+		user.password = ""
+		res.json({ token: newToken, user })
+	} catch (err: unknown) {
+		handleControllerError(res, err)
 	}
-
-	const newToken = createToken(user.toJSON())
-	user.password = ""
-	res.json({ token: newToken, user })
 }

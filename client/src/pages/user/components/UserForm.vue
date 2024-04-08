@@ -30,7 +30,7 @@
 				data-cy="file-input"
 				text="Dodaj
 			zdjęcie profilowe"
-				:change-cb="uploadFile"
+				:change-cb="handleImageUpload"
 			/>
 			<Avatar :src="fileLocation" alt="zdjęcie profilowe" />
 		</template>
@@ -43,7 +43,7 @@
 			@click="push('/user/create')"
 			data-cy="create-account-link"
 		>
-			Nie masz konta? Stworź teraz
+			Nie masz konta? Stworz teraz
 		</Button>
 		<template v-if="type === 'UPDATE'">
 			<Button
@@ -63,13 +63,12 @@
 
 <script setup lang="ts">
 import { ref } from "vue"
-import { useUser } from "../hooks/useUser"
 import { storeToRefs } from "pinia"
 import { useRoute, useRouter } from "vue-router"
 import { UserType } from "@backend/types/user"
-import { useHandleError } from "../../../app/hooks/useHandleError"
-import { FILE_HAVE_TO_BE_IMAGE } from "../../../app/constants/errors"
+import { useUser } from "../hooks/useUser"
 import { useAppStore } from "../../../app/stores/appStore"
+import { useUploadFile } from "../../../app/hooks/useUploadFile"
 import Button from "../../../components/Button.vue"
 import FileInput from "../../../components/FileInput.vue"
 import Avatar from "../../../components/Avatar.vue"
@@ -84,7 +83,7 @@ const { type, user } = defineProps<{
 const appState = useAppStore()
 const { theme } = storeToRefs(appState)
 const { createUser, updateUser, login } = useUser()
-const { handleErrorWithAlert } = useHandleError()
+const { uploadImage } = useUploadFile()
 const { push } = useRouter()
 const { params } = useRoute()
 const { id } = params
@@ -96,21 +95,12 @@ const fileLocation = ref(user?.fileLocation || "")
 const fileName = ref("")
 const isModalOpen = ref(false)
 
-function uploadFile(e: any) {
-	try {
-		const file: File = e.target?.files[0] || null
-		const fileExt = file.name.split(".").pop() || ""
-		const acceptedExts = new Set(["jpg", "png", "jpeg"])
-
-		if (!acceptedExts.has(fileExt)) {
-			throw new Error(FILE_HAVE_TO_BE_IMAGE)
-		}
-		fileName.value = file.name
-		fileLocation.value = URL.createObjectURL(file)
-	} catch (err: unknown) {
-		handleErrorWithAlert(err as string)
-	}
+function handleImageUpload(e: any) {
+	const { file, fileLocation: imageLocation } = uploadImage(e)
+	fileName.value = file?.name || ""
+	fileLocation.value = imageLocation || ""
 }
+
 async function handleSubmit() {
 	if (type === "CREATE") {
 		const { _id } = await createUser({
@@ -120,7 +110,7 @@ async function handleSubmit() {
 			fileLocation: fileLocation.value,
 			fileName: fileName.value,
 		})
-		push(`/user/${_id}`)
+		_id && push(`/user/${_id}`)
 	} else if (type === "UPDATE") {
 		await updateUser({
 			_id: id.toString(),
@@ -131,7 +121,7 @@ async function handleSubmit() {
 		})
 	} else if (type === "LOGIN") {
 		const { _id } = await login(email.value, password.value)
-		push(`/user/${_id}`)
+		_id && push(`/user/${_id}`)
 	}
 }
 </script>

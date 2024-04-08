@@ -1,5 +1,5 @@
 <template>
-	<Navbar />
+	<Navbar :key="$route.fullPath" />
 	<LoadingScreen v-if="isLoading" />
 	<Alerts />
 	<main class="container">
