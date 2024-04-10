@@ -4,6 +4,7 @@ import { useAppStore } from "../../../app/stores/appStore"
 import { SERVER_URL } from "../../../app/constants/urls"
 import { getFormData } from "../../../app/utils/getFormData"
 import { getFileFromUrl } from "../../../app/utils/getFileFromUrl"
+import { BlogElement } from "@backend/types/blog/blog"
 
 export function useBlogElements() {
 	const { handleErrorWithAlert } = useHandleError()
@@ -14,6 +15,37 @@ export function useBlogElements() {
 		blogId: string
 		elementId?: string
 		body: string
+	}
+
+	type UpdateBlogProps = {
+		_id: string
+		content: BlogElement[]
+	}
+
+	async function swapElements({ _id, content }: UpdateBlogProps) {
+		try {
+			startLoading()
+
+			const body = getFormData({ content })
+
+			const res = await fetch(`${SERVER_URL}/api/blog/${_id}`, {
+				method: "PATCH",
+				body,
+				headers: {
+					authorization: `Bearer ${cookies.get("token")}`,
+				},
+			})
+			const data = await res.json()
+
+			if (!res.ok) {
+				throw new Error(data.error)
+			}
+
+			endLoading()
+			return data
+		} catch (err: unknown) {
+			handleErrorWithAlert(err as string)
+		}
 	}
 
 	async function textElementServerAction({
@@ -240,6 +272,7 @@ export function useBlogElements() {
 	}
 
 	return {
+		updateContent: swapElements,
 		textElementServerAction,
 		imageElementServerAction,
 		quoteElementServerAction,

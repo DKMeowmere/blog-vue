@@ -36,7 +36,11 @@
 			class="main-blog-image"
 		/>
 		<template v-if="type === 'UPDATE'">
-			<Button width="100%" @click="isContentModalOpen = true">
+			<Button
+				width="100%"
+				data-cy="update-content-btn"
+				@click="isContentModalOpen = true"
+			>
 				Edytuj zawartość bloga
 			</Button>
 			<Modal v-if="isContentModalOpen" @close="isContentModalOpen = false">
@@ -46,8 +50,16 @@
 					:update-content="newContent => (content = newContent)"
 				/>
 			</Modal>
+			<Button
+				v-if="type === 'UPDATE'"
+				width="100%"
+				data-cy="preview-blog-btn"
+				@click="push(`/blog/${id}`)"
+			>
+				Podgląd
+			</Button>
 		</template>
-		<Button width="100%" type="submit">Zatwierdź</Button>
+		<Button width="100%" type="submit" data-cy="submit-btn">Zatwierdź</Button>
 	</form>
 </template>
 
@@ -107,7 +119,6 @@ async function handleSubmit() {
 			mainFileLocation: mainFileLocation.value,
 			fileName: fileName.value,
 		})
-    
 	}
 }
 </script>
@@ -123,6 +134,7 @@ form {
 	width: 90%;
 	max-width: 500px;
 	margin: auto;
+	position: relative;
 
 	p {
 		text-align: center;
@@ -151,4 +163,3 @@ form {
 	}
 }
 </style>
-../../../../app/stores/hooks/useUploadFile

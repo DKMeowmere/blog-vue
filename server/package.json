@@ -6,7 +6,7 @@
 	"main": "main.ts",
 	"scripts": {
 		"start": "cross-env NODE_ENV=PRODUCTION  node ./dist/src/main.js",
-		"build": "tsc && tsc-alias && npx copyfiles src/config/env/.env.prod dist -a && npx copyfiles static/** dist",
+		"build": "tsc && tsc-alias && npx copyfiles src/config/env/.env.production dist -a && npx copyfiles static/** dist",
 		"dev": "cross-env NODE_ENV=DEVELOPMENT  npx tsx watch ./src/main.ts",
 		"test-client": "cross-env NODE_ENV=TEST  npx tsx watch ./src/main.ts",
 		"test": "cross-env NODE_ENV=TEST vitest"

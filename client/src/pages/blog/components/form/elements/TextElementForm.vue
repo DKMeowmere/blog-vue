@@ -31,6 +31,7 @@
 		v-if="!isPreviewModeActive"
 		v-model="body"
 		spellcheck="false"
+		data-cy="text-element-input"
 	></textarea>
 	<p
 		v-else
@@ -40,7 +41,9 @@
 		@mouseleave="getSelectedTextIndex"
 		ref="previewText"
 	>
-		<template v-if="!isSelectionActive && !isTextHighligted"><span v-html="body"></span></template>
+		<template v-if="!isSelectionActive && !isTextHighligted"
+			><span v-html="body"></span
+		></template>
 		<template v-else-if="isSelectionActive">
 			<span v-text="body"></span>
 		</template>
@@ -50,7 +53,7 @@
 			<span v-text="end"></span
 		></template>
 	</p>
-	<Button @click="handleSubmit">Edytuj</Button>
+	<Button @click="handleSubmit" data-cy="edit-text-element-btn">Edytuj</Button>
 </template>
 
 <script setup lang="ts">
@@ -106,15 +109,15 @@ function resetHighlightedText() {
 
 function getSelectedTextIndex() {
 	const selection = getSelection()
-  
+
 	if (!selection) {
-    return
+		return
 	}
-  
+
 	if (selection.anchorOffset === selection.focusOffset) {
-    return
+		return
 	}
-  isSelectionActive.value = false
+	isSelectionActive.value = false
 
 	firstHighligtedCharIndex.value = Math.min(
 		selection.anchorOffset,

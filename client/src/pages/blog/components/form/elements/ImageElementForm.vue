@@ -1,7 +1,7 @@
 <template>
 	<FileInput
 		:id="`blog-element-${id}`"
-		data-cy="file-input"
+		data-cy="element-file-input"
 		text="Dodaj zdjęcie"
 		:change-cb="handleImageUpload"
 		bg-color="#fff"
@@ -14,10 +14,10 @@
 	<input
 		type="text"
 		v-model="alt"
-		data-cy="alt-input"
+		data-cy="image-element-alt-input"
 		placeholder="Opis obrazka..."
 	/>
-	<Button @click="handleSubmit">Edytuj</Button>
+	<Button @click="handleSubmit" data-cy="edit-image-element-btn">Edytuj</Button>
 </template>
 
 <script setup lang="ts">

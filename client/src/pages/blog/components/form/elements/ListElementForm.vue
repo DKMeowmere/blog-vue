@@ -3,19 +3,21 @@
 	<input
 		type="text"
 		v-model="title"
-		data-cy="list-title-input"
+		data-cy="list-element-title-input"
 		placeholder="Tytuł listy..."
 		spellcheck="false"
 		class="title-input"
 	/>
-	<Button @click="list.push({ _id: genereteUUID(), body: '', type: 'TEXT' })"
+	<Button
+		data-cy="add-list-item"
+		@click="list.push({ _id: genereteUUID(), body: '', type: 'TEXT' })"
 		>Dodaj element listy
 	</Button>
 	<div class="list-element" v-for="(element, index) in list" :key="element._id">
 		<input
 			type="text"
 			v-model="list[index].body"
-			:data-cy="`list-element-${element._id}-input`"
+			data-cy="list-item-input"
 			placeholder="Podaj zawartość..."
 			spellcheck="false"
 			class="list-element-input"
@@ -28,7 +30,9 @@
 			class="remove-list-element-btn"
 		/>
 	</div>
-	<Button @click="handleSubmit">Zatwierdź</Button>
+	<Button @click="handleSubmit" data-cy="edit-list-element-btn">
+		Zatwierdź
+	</Button>
 </template>
 
 <script setup lang="ts">
@@ -93,14 +97,14 @@ button {
 	margin: 20px 0;
 	height: 40px;
 	.list-element-input {
-    width:90%;
-    height: 100%;
-    padding: 5px 10px;
+		width: 90%;
+		height: 100%;
+		padding: 5px 10px;
 	}
 	.remove-list-element-btn {
 		width: 10%;
 		aspect-ratio: 1/1;
-    font-size: 2rem;
+		font-size: 2rem;
 		cursor: pointer;
 	}
 }

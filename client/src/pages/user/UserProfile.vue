@@ -4,10 +4,11 @@
 		<Avatar
 			alt="Zdjęcie profilowe"
 			:src="user.fileLocation || ''"
-			width="60%"
+			width="50%"
 			data-cy="user-avatar"
 		/>
 		<p class="biography" data-cy="user-biography">{{ user.biography }}</p>
+		<BlogCards :blogs="user.userBlogs as BlogType[]" />
 		<template v-if="isUserAccountOwner">
 			<Button
 				width="60%"
@@ -33,6 +34,8 @@ import { useAppStore } from "../../app/stores/appStore"
 import { useUser } from "./hooks/useUser"
 import Avatar from "../../components/Avatar.vue"
 import Button from "../../components/Button.vue"
+import BlogCards from "../../components/blogCard/BlogCards.vue"
+import { BlogType } from "@backend/types/blog/blog"
 
 const { push } = useRouter()
 const { params } = useRoute()
@@ -68,7 +71,7 @@ article {
 	max-width: 500px;
 	gap: 40px;
 	.user-name {
-		font-size: 1.6rem;
+		font-size: 2.6rem;
 	}
 	.biography {
 		font-size: 1rem;
@@ -90,12 +93,17 @@ article {
 @media screen and (min-width: $breakpoints-md) {
 	article {
 		max-width: 900px;
-		h1 {
-			font-size: 3rem;
+		.user-name {
+			font-size: 4.4rem;
 		}
 		.biography {
 			font-size: 1.8rem;
 		}
+	}
+}
+@media screen and (min-width: $breakpoints-lg) {
+	article {
+		max-width: 1000px;
 	}
 }
 </style>

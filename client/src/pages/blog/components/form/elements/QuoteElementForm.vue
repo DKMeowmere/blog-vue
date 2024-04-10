@@ -3,7 +3,7 @@
 	<textarea
 		type="text"
 		v-model="body"
-		data-cy="quote-input"
+		data-cy="quote-element-body-input"
 		placeholder="Cytat..."
 		spellcheck="false"
 	/>
@@ -11,11 +11,11 @@
 	<input
 		type="text"
 		v-model="author"
-		data-cy="author-input"
+		data-cy="quote-element-author-input"
 		placeholder="Autor..."
 		spellcheck="false"
 	/>
-	<Button @click="handleSubmit">Edytuj</Button>
+	<Button @click="handleSubmit" data-cy="edit-quote-element-btn">Edytuj</Button>
 </template>
 
 <script setup lang="ts">

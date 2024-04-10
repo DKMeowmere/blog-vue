@@ -3,44 +3,48 @@
 		<header class="add-element-btn-container">
 			<Icon
 				class="add-element-btn"
+				data-cy="add-text-element-btn"
 				:icon="getIcon('TEXT')"
 				@click="addElement('TEXT')"
 			/>
 			<Icon
 				class="add-element-btn"
+				data-cy="add-image-element-btn"
 				:icon="getIcon('IMAGE')"
 				@click="addElement('IMAGE')"
 			/>
 			<Icon
 				class="add-element-btn"
+				data-cy="add-quote-element-btn"
 				:icon="getIcon('QUOTE')"
 				@click="addElement('QUOTE')"
 			/>
 			<Icon
 				class="add-element-btn"
+				data-cy="add-subtitle-element-btn"
 				:icon="getIcon('SUBTITLE')"
 				@click="addElement('SUBTITLE')"
 			/>
 			<Icon
 				class="add-element-btn"
+				data-cy="add-list-element-btn"
 				:icon="getIcon('LIST')"
 				@click="addElement('LIST')"
 			/>
 		</header>
-		<div class="elements-icons">
-			<Icon
-				v-for="element in content"
-				:key="element._id"
-				:icon="getIcon(element.type)"
-				@click="selectedElement = element"
-				class="select-element-icon"
-			/>
-		</div>
+		<ElementsIcons
+			:blog-id="blogId"
+			:content="content"
+			:key="content.length"
+			:update-content="updateContent"
+			:update-selected-element="element => (selectedElement = element)"
+		/>
 		<div v-if="selectedElement" class="blog-element" :key="selectedElement._id">
 			<Icon
 				icon="mdi:trash-can"
 				@click="deleteElement"
 				class="delete-element-btn"
+				data-cy="delete-element-btn"
 			/>
 			<TextElementForm
 				v-if="selectedElement.type === 'TEXT'"
@@ -57,12 +61,12 @@
 				:element="selectedElement"
 				:update-content="updateContent"
 			/>
-      <SubtitleElementForm
+			<SubtitleElementForm
 				v-else-if="selectedElement.type === 'SUBTITLE'"
 				:element="selectedElement"
 				:update-content="updateContent"
 			/>
-      <ListElementForm
+			<ListElementForm
 				v-else-if="selectedElement.type === 'LIST'"
 				:element="selectedElement"
 				:update-content="updateContent"
@@ -82,6 +86,7 @@ import { storeToRefs } from "pinia"
 import { BlogElement, BlogElementTypes } from "@backend/types/blog/blog"
 import { useAppStore } from "../../../../app/stores/appStore"
 import { useBlogElements } from "../../hooks/useBlogElements"
+import ElementsIcons from "./ElementsIcons.vue"
 import TextElementForm from "./elements/TextElementForm.vue"
 import ImageElementForm from "./elements/ImageElementForm.vue"
 import QuoteElementForm from "./elements/QuoteElementForm.vue"
@@ -133,6 +138,7 @@ async function addElement(type: BlogElementTypes) {
 			body: "",
 		})
 		updateContent(newBlog.content)
+		selectedElement.value = newBlog.content.at(-1) || null
 	} else if (type === "IMAGE") {
 		const newBlog = await imageElementServerAction({
 			blogId,
@@ -140,6 +146,7 @@ async function addElement(type: BlogElementTypes) {
 			fileLocation: "",
 			fileName: "",
 		})
+		selectedElement.value = newBlog.content.at(-1) || null
 		updateContent(newBlog.content)
 	} else if (type === "QUOTE") {
 		const newBlog = await quoteElementServerAction({
@@ -148,19 +155,22 @@ async function addElement(type: BlogElementTypes) {
 			body: "",
 		})
 		updateContent(newBlog.content)
+		selectedElement.value = newBlog.content.at(-1) || null
 	} else if (type === "SUBTITLE") {
 		const newBlog = await subtitleElementServerAction({
 			blogId,
 			body: "",
 		})
 		updateContent(newBlog.content)
+		selectedElement.value = newBlog.content.at(-1) || null
 	} else if (type === "LIST") {
 		const newBlog = await listElementServerAction({
 			blogId,
-      title:'',
+			title: "",
 			listContent: [],
 		})
 		updateContent(newBlog.content)
+		selectedElement.value = newBlog.content.at(-1) || null
 	}
 }
 
@@ -202,23 +212,6 @@ async function deleteElement() {
 			&:hover {
 				box-shadow: 0px 0px 15px 0px v-bind("theme.colors.main");
 			}
-		}
-	}
-	.elements-icons {
-		width: 10%;
-		min-width: 40px;
-		height: 80%;
-		padding: 5px;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		border-right: 1px solid #000;
-		overflow-y: auto;
-		gap: 8px;
-		.select-element-icon {
-			width: 25px;
-			min-height: 25px;
-			cursor: pointer;
 		}
 	}
 	.blog-element {
@@ -263,17 +256,6 @@ async function deleteElement() {
 			font-size: 2rem;
 			color: #9e9e9e;
 			text-align: center;
-		}
-	}
-}
-
-@media screen and (min-width: $breakpoints-md) {
-	.elements-form-container {
-		.elements-icons {
-			.select-element-icon {
-				width: 35px;
-				min-height: 35px;
-			}
 		}
 	}
 }

@@ -5,7 +5,7 @@
 			v-model="tagInput"
 			maxlength="20"
 			class="tag-input"
-			data-cy="source-input"
+			data-cy="tag-input"
 			placeholder="Dodaj tag..."
 		/>
 		<Button
@@ -19,8 +19,9 @@
 	</div>
 	<div class="tags-container">
 		<div
-			class="tag"
 			v-for="tag in tags"
+			class="tag"
+			data-cy="tag"
 			:key="tag"
 			@click="() => removeTagCb(tag)"
 		>

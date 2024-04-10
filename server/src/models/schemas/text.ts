@@ -12,9 +12,4 @@ export const textElementSchema = new mongoose.Schema<TextElementType>({
 		required: true,
 		trim: true,
 	},
-	to: { type: String, required: true, trim: true },
-	textType: {
-		required: true,
-		type: String,
-	},
 })

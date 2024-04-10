@@ -3,12 +3,14 @@
 	<input
 		type="text"
 		v-model="body"
-		data-cy="subtitle-input"
+		data-cy="subtitle-element-body-input"
 		placeholder="Podtytuł..."
 		spellcheck="false"
 	/>
 
-	<Button @click="handleSubmit">Edytuj</Button>
+	<Button @click="handleSubmit" data-cy="edit-subtitle-element-btn"
+		>Edytuj</Button
+	>
 </template>
 
 <script setup lang="ts">

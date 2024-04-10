@@ -37,7 +37,7 @@ export function useBlog() {
 		}
 	}
 
-	async function getBlogs(limit: number) {
+	async function getBlogs(limit?: number) {
 		try {
 			startLoading()
 			const res = await fetch(`${SERVER_URL}/api/blog?limit=${limit || 0}`)
@@ -148,7 +148,9 @@ export function useBlog() {
 			}
 
 			const file = await getFileFromUrl(mainFileLocation, fileName)
-			const body = getFormData({ title, source, tags }, "file", [file || null])
+			const body = getFormData({ title, source, tags }, "file", [
+				file || null,
+			])
 
 			const res = await fetch(`${SERVER_URL}/api/blog/${_id}`, {
 				method: "PATCH",

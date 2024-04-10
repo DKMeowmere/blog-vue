@@ -28,7 +28,7 @@ export async function updateBlog(req: CustomRequest, res: Response) {
 			throw new CustomError(error)
 		}
 
-		const { title, source, tags } = req.body
+		const { title, source, tags, content } = req.body
 
 		if (title) {
 			blog.title = title
@@ -41,6 +41,10 @@ export async function updateBlog(req: CustomRequest, res: Response) {
 		if (tags) {
 			const uniqueTags: string[] = Array.from(new Set(JSON.parse(tags)))
 			blog.tags = uniqueTags
+		}
+
+		if (content) {
+			blog.content = JSON.parse(content)
 		}
 
 		const result = blogValidationSchema.safeParse(blog)
