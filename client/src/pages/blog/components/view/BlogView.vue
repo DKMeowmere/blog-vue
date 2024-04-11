@@ -52,14 +52,14 @@
 
 <script setup lang="ts">
 import { storeToRefs } from "pinia"
+import { Icon } from "@iconify/vue"
 import { BlogType } from "@backend/types/blog/blog"
 import { UserType } from "@backend/types/user"
 import { useAppStore } from "../../../../app/stores/appStore"
 import { validateServerUrl } from "../../../../app/utils/validateServerUrl"
 import { DEFAULT_BLOG_IMAGE_URL } from "../../../../app/constants/urls"
 import Avatar from "../../../../components/Avatar.vue"
-import { computed } from "vue"
-import { Icon } from "@iconify/vue/dist/iconify.js"
+import { computed, onUnmounted } from "vue"
 import { useRouter } from "vue-router"
 import Image from "./Image.vue"
 import Text from "./Text.vue"
@@ -97,6 +97,12 @@ if (titleEl) {
 if (descEl) {
 	descEl.setAttribute("content", blog.tags.join(" "))
 }
+
+onUnmounted(() => {
+	if (titleEl) {
+		titleEl.textContent = `Blogify`
+	}
+})
 </script>
 
 <style scoped lang="scss">

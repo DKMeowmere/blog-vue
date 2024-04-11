@@ -8,6 +8,7 @@
 			data-cy="user-avatar"
 		/>
 		<p class="biography" data-cy="user-biography">{{ user.biography }}</p>
+		<h2>Blogi użytkownika:</h2>
 		<BlogCards :blogs="user.userBlogs as BlogType[]" />
 		<template v-if="isUserAccountOwner">
 			<Button
@@ -78,15 +79,21 @@ article {
 		font-style: italic;
 		text-align: center;
 	}
+	h2 {
+		font-size: 2rem;
+	}
 }
 @media screen and (min-width: $breakpoints-sm) {
 	article {
 		max-width: 700px;
-		h1 {
-			font-size: 2.2rem;
+		.user-name {
+			font-size: 3.2rem;
 		}
 		.biography {
 			font-size: 1.4rem;
+		}
+		h2 {
+			font-size: 2.4rem;
 		}
 	}
 }
@@ -98,6 +105,9 @@ article {
 		}
 		.biography {
 			font-size: 1.8rem;
+		}
+		h2 {
+			font-size: 3rem;
 		}
 	}
 }

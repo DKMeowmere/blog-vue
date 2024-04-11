@@ -82,13 +82,14 @@ function getCreationDate(blog: BlogType) {
 			display: flex;
 			align-items: center;
 			gap: 5px;
-			font-size: 1.3rem;
+			font-size: 1rem;
 		}
 	}
 	&:hover .img-wrapper img {
 		scale: 1.1;
 	}
 	.img-wrapper {
+		width: 100%;
 		display: inline-block;
 		overflow: hidden;
 		img {
@@ -104,7 +105,7 @@ function getCreationDate(blog: BlogType) {
 		width: 45%;
 	}
 }
-@media screen and (min-width: $breakpoints-lg) {
+@media screen and (min-width: $breakpoints-xl) {
 	.user-blog {
 		width: 30%;
 	}
