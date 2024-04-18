@@ -1,36 +1,41 @@
 <template>
-	<p class="title">Dodaj tytuł listy</p>
+	<p class="text-center text-[2rem] mb-[30px]">Dodaj tytuł listy</p>
 	<input
 		type="text"
 		v-model="title"
 		data-cy="list-element-title-input"
 		placeholder="Tytuł listy..."
 		spellcheck="false"
-		class="title-input"
+		class="w-full h-[50px] mb-2.5 rounded-[5px] text-[1.2rem] py-1.5 px-2.5 border"
 	/>
 	<Button
 		data-cy="add-list-item"
 		@click="list.push({ _id: genereteUUID(), body: '', type: 'TEXT' })"
+		additional-styles="mt-[30px] h-[50px]"
 		>Dodaj element listy
 	</Button>
-	<div class="list-element" v-for="(element, index) in list" :key="element._id">
+	<div
+		class="w-full flex items-center my-5 text-[1.2rem] h-[40px]"
+		v-for="(element, index) in list"
+		:key="element._id"
+	>
 		<input
 			type="text"
 			v-model="list[index].body"
 			data-cy="list-item-input"
 			placeholder="Podaj zawartość..."
 			spellcheck="false"
-			class="list-element-input"
+			class="w-[90%] h-full py-1.5 px-2.5 border"
 		/>
 		<Icon
 			icon="mdi:close"
 			@click="
 				list = list.filter(listElement => element._id !== listElement._id)
 			"
-			class="remove-list-element-btn"
+			class="w-[10%] aspect-square cursor-pointer text-[2rem] hover:text-errorMain"
 		/>
 	</div>
-	<Button @click="handleSubmit" data-cy="edit-list-element-btn">
+	<Button @click="handleSubmit" data-cy="edit-list-element-btn" additional-styles="h-12">
 		Zatwierdź
 	</Button>
 </template>
@@ -72,7 +77,7 @@ async function handleSubmit() {
 }
 </script>
 
-<style scoped lang="scss">
+<!-- <style scoped lang="scss">
 .title {
 	text-align: center;
 	font-size: 2rem;
@@ -108,4 +113,4 @@ button {
 		cursor: pointer;
 	}
 }
-</style>
+</style> -->

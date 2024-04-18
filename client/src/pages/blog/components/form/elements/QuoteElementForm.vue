@@ -1,7 +1,8 @@
 <template>
-	<p class="title">Podaj cytat</p>
+	<p class="text-center text-[2rem] mb-[30px]">Podaj cytat</p>
 	<textarea
 		type="text"
+		class="w-full h-150px resize-none overflow-y-auto text-inherit py-1.5 px-2.5"
 		v-model="body"
 		data-cy="quote-element-body-input"
 		placeholder="Cytat..."
@@ -14,8 +15,9 @@
 		data-cy="quote-element-author-input"
 		placeholder="Autor..."
 		spellcheck="false"
+		class="w-full h-50px border rounded-[5px] test-[1.2rem] mb-2.5 py-1.5 px-2.5"
 	/>
-	<Button @click="handleSubmit" data-cy="edit-quote-element-btn">Edytuj</Button>
+	<Button @click="handleSubmit" data-cy="edit-quote-element-btn" additional-styles="mt-[30px]">Edytuj</Button>
 </template>
 
 <script setup lang="ts">
@@ -49,7 +51,7 @@ async function handleSubmit() {
 }
 </script>
 
-<style scoped lang="scss">
+<!-- <style scoped lang="scss">
 .title {
 	text-align: center;
 	font-size: 2rem;
@@ -75,4 +77,4 @@ button {
 	width: 100%;
 	margin-top: 30px;
 }
-</style>
+</style> -->

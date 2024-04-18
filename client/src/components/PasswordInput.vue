@@ -1,16 +1,20 @@
 <template>
-	<div class="password-input-container">
+	<div class="relative mb-[40px]">
 		<Icon
 			:icon="isPasswordVisible ? 'mdi:eye-off' : 'mdi:eye'"
 			@click="isPasswordVisible = !isPasswordVisible"
-			class="eye-icon"
+			class="absolute top-[50%] right-[10px] w-[30px] h-[30px] translate-y-[-50%] cursor-pointer text-[#111]"
 		/>
 		<input
 			v-bind="$attrs"
 			:type="isPasswordVisible ? 'text' : 'password'"
 			:value="modelValue"
 			@input="updateValue"
+      placeholder="Wprowadź hasło..."
 			:data-cy="dataCy"
+			:class="`${width || 'w-full'} ${
+				height || 'h-[50px]'
+			} text-[1.2rem] text-blackText font-mono rounded-[5px] py-[5px] pl-[10px] pr-[20%] sm-pr-[16%] md-pr-[12%]`"
 		/>
 	</div>
 </template>
@@ -37,10 +41,9 @@ const emit = defineEmits(["update:modelValue"])
 function updateValue(e: Event) {
 	emit("update:modelValue", (e.target as HTMLInputElement).value)
 }
-
 </script>
 
-<style scoped lang="scss">
+<!-- <style scoped lang="scss">
 @import "../app/style/_variables";
 
 .password-input-container {
@@ -52,7 +55,7 @@ function updateValue(e: Event) {
 		height: 30px;
 		right: 10px;
 		top: 50%;
-		transform: translateY(-50%);
+		translate: 0 -50%;
 		cursor: pointer;
 		color: #111;
 	}
@@ -78,4 +81,4 @@ function updateValue(e: Event) {
 		}
 	}
 }
-</style>
+</style> -->

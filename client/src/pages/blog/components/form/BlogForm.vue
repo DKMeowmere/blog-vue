@@ -1,22 +1,31 @@
 <template>
-	<h1 v-if="type === 'CREATE'">Stwórz blog</h1>
-	<h1 v-if="type === 'UPDATE'">Edytuj blog</h1>
-	<form @submit.prevent="handleSubmit">
-		<p>Tytuł</p>
+	<h1 v-if="type === 'CREATE'" class="text-center text-[2rem] mb-[70px]">
+		Stwórz blog
+	</h1>
+	<h1 v-if="type === 'UPDATE'" class="text-center text-[2rem] mb-[70px]">
+		Edytuj blog
+	</h1>
+	<form
+		@submit.prevent="handleSubmit"
+		class="w-[90%] max-w-[500px] m-auto relative"
+	>
+		<p class="text-center text-[1.6rem] mb-[20px]">Tytuł</p>
 		<input
 			type="text"
 			v-model="title"
 			data-cy="title-input"
+			class="w-full h-[50px] rounded-[5px] mb-10 text-[1.2rem] py-1.5 px-2.5 text-blackText"
 			placeholder="Tytuł..."
 		/>
-		<p>Źródło (opcjonalnie)</p>
+		<p class="text-center text-[1.6rem] mb-[20px]">Źródło (opcjonalnie)</p>
 		<input
 			type="text"
 			v-model="source"
 			data-cy="source-input"
+			class="w-full h-[50px] rounded-[5px] mb-10 text-[1.2rem] py-1.5 px-2.5 text-blackText"
 			placeholder="Źródło..."
 		/>
-		<p>Tagi</p>
+		<p class="text-center text-[1.6rem] mb-[20px]">Tagi</p>
 		<Tags
 			:tags="tags"
 			:add-tag-cb="value => tags.push(value)"
@@ -28,16 +37,17 @@
 			data-cy="file-input"
 			text="Dodaj zdjęcie bloga"
 			:change-cb="handleImageUpload"
+			additional-styles="dark:text-whiteText"
 		/>
 		<img
 			alt="main blog image"
 			:src="validateServerUrl(mainFileLocation) || DEFAULT_BLOG_IMAGE_URL"
 			@error="mainFileLocation = ''"
-			class="main-blog-image"
+			class="w-full aspect-video object-cover mb-10"
 		/>
 		<template v-if="type === 'UPDATE'">
 			<Button
-				width="100%"
+				additional-styles="mb-[40px]"
 				data-cy="update-content-btn"
 				@click="isContentModalOpen = true"
 			>
@@ -52,14 +62,16 @@
 			</Modal>
 			<Button
 				v-if="type === 'UPDATE'"
-				width="100%"
+				additional-styles="mb-[40px]"
 				data-cy="preview-blog-btn"
 				@click="push(`/blog/${id}`)"
 			>
 				Podgląd
 			</Button>
 		</template>
-		<Button width="100%" type="submit" data-cy="submit-btn">Zatwierdź</Button>
+		<Button additional-styles="mb-[40px]" type="submit" data-cy="submit-btn">
+			Zatwierdź
+		</Button>
 	</form>
 </template>
 
@@ -123,7 +135,7 @@ async function handleSubmit() {
 }
 </script>
 
-<style lang="scss" scoped>
+<!-- <style lang="scss" scoped>
 h1 {
 	text-align: center;
 	font-size: 2rem;
@@ -162,4 +174,4 @@ form {
 		margin-bottom: 40px;
 	}
 }
-</style>
+</style> -->

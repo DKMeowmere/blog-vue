@@ -1,31 +1,37 @@
 <template>
-	<button :type="type || 'button'">
+	<button
+		:type="type || 'button'"
+		:class="`${width || 'w-full'} ${maxWidth || 'max-w-full'} ${
+			height || 'h-full'
+		}  ${bgColor || 'bg-main'}  ${
+			disabled ? 'cursor-not-allowed' : 'cursor-pointer'
+		} ${
+			textColor || 'text-whiteText'
+		}  py-4 px-2.5 uppercase tracking-wider font-bold border-0 rounded-xl flex items-center justify-center my-0 mx-auto hover:shadow-2xl hover:ring ${
+			additionalStyles || ''
+		}`"
+	>
 		<slot> </slot>
 	</button>
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from "pinia"
-import { useAppStore } from "../app/stores/appStore"
-
 type Props = {
 	width?: string
 	maxWidth?: string
 	height?: string
+	additionalStyles?: string
 	type?: "button" | "submit" | "reset"
 	bgColor?: string
 	textColor?: string
-	onlyIcon?: boolean
 	disabled?: boolean
 }
 
-const { width, maxWidth, height, bgColor, onlyIcon, textColor, disabled } =
+const { width, maxWidth, height, bgColor, textColor, disabled } =
 	defineProps<Props>()
-const appStore = useAppStore()
-const { theme } = storeToRefs(appStore)
 </script>
 
-<style lang="scss" scoped>
+<!-- <style lang="scss" scoped>
 button {
 	width: v-bind("width || 'auto'");
 	max-width: v-bind("maxWidth || 'auto'");
@@ -53,4 +59,4 @@ button {
 		margin-right: v-bind("onlyIcon ? '0px' : '12px'");
 	}
 }
-</style>
+</style> -->

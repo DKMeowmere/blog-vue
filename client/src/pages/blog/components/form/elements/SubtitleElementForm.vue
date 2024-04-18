@@ -1,14 +1,18 @@
 <template>
-	<p class="title">Podaj podtytuł</p>
+	<p class="text-center text-[2rem] mb-[30px]">Podaj podtytuł</p>
 	<input
 		type="text"
 		v-model="body"
 		data-cy="subtitle-element-body-input"
 		placeholder="Podtytuł..."
 		spellcheck="false"
+		class="w-full h-[50px] rounded-[5px] mb-2.5 text-[1.2rem] py-[5px] px-2.5 border"
 	/>
 
-	<Button @click="handleSubmit" data-cy="edit-subtitle-element-btn"
+	<Button
+		@click="handleSubmit"
+		data-cy="edit-subtitle-element-btn"
+		additional-styles="mb-[30px] h-[50px]"
 		>Edytuj</Button
 	>
 </template>
@@ -42,7 +46,7 @@ async function handleSubmit() {
 }
 </script>
 
-<style scoped lang="scss">
+<!-- <style scoped lang="scss">
 .title {
 	text-align: center;
 	font-size: 2rem;
@@ -60,4 +64,4 @@ button {
 	width: 100%;
 	margin-top: 30px;
 }
-</style>
+</style> -->

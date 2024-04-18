@@ -1,15 +1,15 @@
 <template>
-	<div class="input-container">
+	<div class="w-full h-[50px] flex mb-10">
 		<input
 			type="text"
 			v-model="tagInput"
 			maxlength="20"
-			class="tag-input"
+			class="!w-[70%] text-[1.2rem] py-1.5 px-2.5 rounded-l-lg text-blackText"
 			data-cy="tag-input"
 			placeholder="Dodaj tag..."
 		/>
 		<Button
-			class="add-tag-btn"
+			additional-styles="!w-[30%] mt-0 h-[50px] !rounded-r-lg !rounded-none"
 			data-cy="add-tag-btn"
 			@click="addTag"
 			type="button"
@@ -17,16 +17,19 @@
 			Dodaj tag
 		</Button>
 	</div>
-	<div class="tags-container">
+	<div class="w-full my-7 flex flex-wrap gap-4">
 		<div
 			v-for="tag in tags"
-			class="tag"
+			class="group relative py-2.5 px-4 text-whiteText bg-main flex-grow-[1] rounded-[7px] text-[1.2rem] text-bold uppercase text-center cursor-pointer tracting-[1.5px] hover:text-main"
 			data-cy="tag"
 			:key="tag"
 			@click="() => removeTagCb(tag)"
 		>
 			{{ tag }}
-			<Icon icon="material-symbols:close" class="icon" />
+			<Icon
+				icon="material-symbols:close"
+				class="opacity-0 absolute w-7 h-7 top-1/2 left-1/2 -translate-1/2 text-whiteText group-hover:opacity-100"
+			/>
 		</div>
 	</div>
 </template>
@@ -34,7 +37,6 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import { Icon } from "@iconify/vue"
-import { storeToRefs } from "pinia"
 import { TAGS_HAVE_TO_BE_UNIQUE } from "../../../../app/constants/alerts"
 import { useAppStore } from "../../../../app/stores/appStore"
 import Button from "../../../../components/Button.vue"
@@ -47,7 +49,6 @@ type Props = {
 
 const appState = useAppStore()
 const { enqueueAlert } = appState
-const { theme } = storeToRefs(appState)
 const { tags, addTagCb, removeTagCb } = defineProps<Props>()
 const tagInput = ref("")
 
@@ -66,7 +67,7 @@ function addTag() {
 }
 </script>
 
-<style scoped>
+<!-- <style scoped>
 .input-container {
 	width: 100%;
 	height: 50px;
@@ -80,12 +81,6 @@ function addTag() {
 	font-size: 1.2rem;
 	padding: 5px 10px;
 	border-radius: 5px 0 0 5px;
-}
-
-button {
-	width: 100%;
-	height: 60px;
-	margin-top: 30px;
 }
 
 .add-tag-btn {
@@ -134,5 +129,4 @@ button {
 		}
 	}
 }
-</style>
-../../../../app/constants/alerts../../../../app/stores/appStore
+</style> -->

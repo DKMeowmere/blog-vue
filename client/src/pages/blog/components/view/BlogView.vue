@@ -1,26 +1,28 @@
 <template>
-	<article class="blog-container">
+	<article
+		class="w-[90%] max-w-[800px] m-auto flex flex-col gap-5 p-6 rounded-[10px] relative bg-lightMainBg-500 dark:bg-darkMainBg-500 text-blackText dark:text-whiteText"
+	>
 		<Icon
 			v-if="isBlogOwner"
 			icon="mdi:update"
-			class="update-blog-btn"
+			class="absolute top-2.5 right-2.5 cursor-pointer text-[3rem]"
 			data-cy="update-blog-btn"
 			@click="push(`/blog/${blog._id}/update`)"
 		/>
-		<h1>{{ blog.title }}</h1>
+		<h1 class="text-[2rem] text-bold md:text-[3rem]">{{ blog.title }}</h1>
 		<img
 			:src="validateServerUrl(blog.mainFileLocation) || DEFAULT_BLOG_IMAGE_URL"
 			:alt="blog.title"
-			class="main-blog-image"
+			class="w-full aspect-video"
 		/>
 		<router-link
 			:to="author ? `/user/${author._id}` : ''"
-			class="author-container"
+			class="flex items-center gap-[5px] text-[1.3rem]"
 		>
 			<Avatar
 				alt="author avatar"
 				:src="author?.fileLocation || ''"
-				width="34px"
+				width="w-[34px]"
 			/>
 			<span v-if="author">
 				{{ author.name }} |
@@ -28,9 +30,9 @@
 			</span>
 			<span v-else>Usunięty użytkownik</span>
 		</router-link>
-		<div class="blog-content">
+		<div class="w-full flex flex-col">
 			<div
-				class="blog-element"
+				class="w-full flex flex-col justify-center items-center"
 				v-for="element in blog.content"
 				:key="element._id"
 			>
@@ -41,11 +43,16 @@
 				<List v-else-if="element.type === 'LIST'" :element="element" />
 			</div>
 		</div>
-		<p v-if="blog.source" class="source">Źródło - {{ blog.source }}</p>
-		<div v-if="blog.tags.length > 0" class="tags-container">
-			<span class="tag" v-for="tag in blog.tags" :key="tag">{{
-				tag.toUpperCase()
-			}}</span>
+		<p v-if="blog.source" class="text-[0.8rem] md:text-[1.1rem]">
+			Źródło - {{ blog.source }}
+		</p>
+		<div v-if="blog.tags.length > 0" class="flex gap-2 flex-row flex-wrap">
+			<span
+				class="p-[5px] rounded-[3px] bg-main text-whiteText text-[0.7rem] font-bold md:p-[7px] md:text-[1rem]"
+				v-for="tag in blog.tags"
+				:key="tag"
+				>{{ tag.toUpperCase() }}</span
+			>
 		</div>
 	</article>
 </template>

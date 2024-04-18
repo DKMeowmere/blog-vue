@@ -1,5 +1,9 @@
 <template>
-	<h2>{{ element.body }}</h2>
+	<h2
+		class="text-[1.6rem] md:text-[2.4rem] text-bold mt-[50px] mb-2.5 mx-auto text-center"
+	>
+		{{ element.body }}
+	</h2>
 </template>
 
 <script setup lang="ts">
@@ -12,7 +16,7 @@ type Props = {
 const { element } = defineProps<Props>()
 </script>
 
-<style scoped lang="scss">
+<!-- <style scoped lang="scss">
 @import "../../../../app/style/variables";
 
 h2 {
@@ -27,4 +31,4 @@ h2 {
 		font-size: 2.4rem;
 	}
 }
-</style>
+</style> -->

@@ -1,8 +1,10 @@
 <template>
 	<Navbar :key="$route.fullPath" />
-	<LoadingScreen v-if="isLoading" />
+	<LoadingScreen v-if="isLoading"/>
 	<Alerts />
-	<main class="container">
+	<main
+		class="w-full min-h-screen py-36 px-20 bg-lightMainBg-500 dark:bg-darkMainBg-500 text-blackText dark:text-whiteText"
+	>
 		<router-view />
 	</main>
 </template>
@@ -18,7 +20,7 @@ import Navbar from "./components/Navbar.vue"
 const appStore = useAppStore()
 const { loginWithToken } = useUser()
 const { setupTheme } = appStore
-const { theme, isLoading } = storeToRefs(appStore)
+const { isLoading } = storeToRefs(appStore)
 
 if (window.Cypress) {
 	window.store = { app: appStore }
@@ -27,7 +29,7 @@ loginWithToken()
 setupTheme()
 </script>
 
-<style scoped>
+<!-- <style scoped>
 .container {
 	width: 100%;
 	min-height: 100vh;
@@ -35,4 +37,4 @@ setupTheme()
 	background-color: v-bind("theme.colors.mainBg");
 	color: v-bind("theme.colors.text");
 }
-</style>
+</style> -->

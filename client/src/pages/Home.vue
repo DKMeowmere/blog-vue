@@ -2,8 +2,8 @@
 	<Button @click="push('/blog/create')">Stwórz blog</Button>
 	<h1>Najnowsze blogi</h1>
 	<SearchBar
-		width="80%"
-		height="40px"
+		width="w-[80%]"
+		height="h-[40px]"
 		max-width="500px"
 		v-model="query"
 		:autocomplete-data="query ? blogTitles : []"

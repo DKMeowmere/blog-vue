@@ -1,5 +1,5 @@
 <template>
-	<p v-html="text"></p>
+	<p v-html="text" class="my-2.5 text-[1.2rem] md:text-[1.5rem]"></p>
 </template>
 
 <script setup lang="ts">
@@ -30,7 +30,7 @@ function validateText() {
 }
 </script>
 
-<style scoped lang="scss">
+<!-- <style scoped lang="scss">
 @import "../../../../app/style/variables";
 
 p {
@@ -43,4 +43,4 @@ p {
 		font-size: 1.5rem;
 	}
 }
-</style>
+</style> -->

@@ -1,8 +1,17 @@
 <template>
-	<figure>
-		<figcaption v-if="element.title">{{ element.title }}</figcaption>
-		<ul>
-			<li v-for="text in element.listContent" :key="text._id">
+	<figure class="p-[5px]">
+		<figcaption
+			v-if="element.title"
+			class="text-[1.5rem] md:text-[1.9rem] text-center"
+		>
+			{{ element.title }}
+		</figcaption>
+		<ul class="ml-5">
+			<li
+				v-for="text in element.listContent"
+				:key="text._id"
+				class="list-disc text-[1.2rem] md:text-[1.5rem]"
+			>
 				{{ text.body }}
 			</li>
 		</ul>
@@ -19,12 +28,11 @@ type Props = {
 const { element } = defineProps<Props>()
 </script>
 
-<style scoped lang="scss">
+<!-- <style scoped lang="scss">
 @import "../../../../app/style/variables";
 
 figure {
 	padding: 5px;
-	align-self: left;
 	figcaption {
 		font-size: 1.5rem;
 		text-align: center;
@@ -50,4 +58,4 @@ figure {
 		}
 	}
 }
-</style>
+</style> -->

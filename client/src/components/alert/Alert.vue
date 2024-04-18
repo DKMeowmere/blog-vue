@@ -1,16 +1,38 @@
 <template>
 	<div
-		:class="`alert alert-${type.toLowerCase()}`"
+		:class="`pt-2.5 pr-7 pb-4 pl-10 flex items-center z-40 w-full relative ${
+			alert.type === 'ERROR' &&
+			'bg-errorSecondary text-errorMain border-errorMain'
+		}  ${
+			alert.type === 'SUCCESS' &&
+			'bg-successSecondary text-successMain border-successMain'
+		}  ${
+			alert.type === 'INFO' && 'bg-infoSecondary text-infoMain border-infoMain'
+		} ${
+			alert.type === 'WARNING' &&
+			'bg-warningSecondary text-warningMain border-warningMain'
+		}`"
 		data-cy="alert"
 		@click="currentProgress = 0"
 	>
-		<Icon class="alert-icon" :icon="getIconName(type)" />
-		<div class="countdown-bar" ref="countdownBarRef"></div>
-		<p>
+		<Icon class="absolute scale-[200%] left-[12px]" :icon="getIconName(type)" />
+		<div
+			:class="`absolute left-0 bottom-0 w-0 h-[5px] ${
+				alert.type === 'ERROR' && 'bg-errorMain'
+			}  ${alert.type === 'SUCCESS' && 'bg-successMain'}  ${
+				alert.type === 'INFO' && 'bg-infoMain'
+			} ${alert.type === 'WARNING' && 'bg-warningMain'}`"
+			ref="countdownBarRef"
+		></div>
+		<p class="text-justify">
 			{{ body }}
 		</p>
 		<Icon
-			class="close-icon"
+			:class="`absolute right-[7px] scale-[160%] cursor-pointer font-bold ${
+				alert.type === 'ERROR' && 'text-errorMain'
+			}  ${alert.type === 'SUCCESS' && 'text-successMain'}  ${
+				alert.type === 'INFO' && 'text-infoMain'
+			} ${alert.type === 'WARNING' && 'text-warningMain'}`"
 			data-cy="close-alert-icon"
 			icon="material-symbols:close"
 			@click="deleteAlert(id)"
@@ -29,7 +51,7 @@ const { alert } = defineProps<{ alert: Alert }>()
 const appStore = useAppStore()
 const { id, body, type } = alert
 const { deleteAlert } = appStore
-const { theme, alertLifeTime } = storeToRefs(appStore)
+const { alertLifeTime } = storeToRefs(appStore)
 const currentProgress = ref(0)
 const countdownBarRef = ref()
 
@@ -61,7 +83,7 @@ function getIconName(type: AlertTypes) {
 }
 </script>
 
-<style scoped lang="scss">
+<!-- <style scoped lang="scss">
 @import "../../app/style/_variables";
 
 .alert {
@@ -141,4 +163,4 @@ function getIconName(type: AlertTypes) {
 		background-color: v-bind("theme.colors.infoMain");
 	}
 }
-</style>
+</style> -->

@@ -4,20 +4,28 @@
 		data-cy="element-file-input"
 		text="Dodaj zdjęcie"
 		:change-cb="handleImageUpload"
-		bg-color="#fff"
+		bg-color="bg-[#fff]"
+    additional-styles="text-blackText"
 	/>
 	<img
 		:src="validateServerUrl(fileLocation) || DEFAULT_BLOG_IMAGE_URL"
 		:alt="alt"
+		class="w-full aspect-video object-cover mb-[40px]"
 	/>
-	<p class="title">Podaj opis obrazka</p>
+	<p class="text-center text-[2rem] mb-[30px]">Podaj opis obrazka</p>
 	<input
 		type="text"
 		v-model="alt"
 		data-cy="image-element-alt-input"
 		placeholder="Opis obrazka..."
+		class="w-full h-[50px] rounded-[5px] mb-[10px] text-[1.2rem] py-[5px] px-2.5 border"
 	/>
-	<Button @click="handleSubmit" data-cy="edit-image-element-btn">Edytuj</Button>
+	<Button
+		@click="handleSubmit"
+		data-cy="edit-image-element-btn"
+		additional-styles="mt-[30px] h-[50px]"
+		>Edytuj</Button
+	>
 </template>
 
 <script setup lang="ts">
@@ -65,7 +73,7 @@ async function handleSubmit() {
 }
 </script>
 
-<style scoped lang="scss">
+<!-- <style scoped lang="scss">
 .title {
 	text-align: center;
 	font-size: 2rem;
@@ -89,4 +97,4 @@ img {
 	object-fit: cover;
 	margin-bottom: 40px;
 }
-</style>
+</style> -->

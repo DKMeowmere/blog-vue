@@ -1,40 +1,67 @@
 <template>
-	<h1 v-if="type === 'CREATE'">Stwórz konto</h1>
-	<h1 v-if="type === 'LOGIN'">Zaloguj się</h1>
-	<h1 v-if="type === 'UPDATE'">Edytuj konto</h1>
-	<form @submit.prevent="handleSubmit">
+	<h1 v-if="type === 'CREATE'" class="text-center text-[2rem] mb-[70px]">
+		Stwórz konto
+	</h1>
+	<h1 v-if="type === 'LOGIN'" class="text-center text-[2rem] mb-[70px]">
+		Zaloguj się
+	</h1>
+	<h1 v-if="type === 'UPDATE'" class="text-center text-[2rem] mb-[70px]">
+		Edytuj konto
+	</h1>
+	<form @submit.prevent="handleSubmit" class="w-[90%] max-w-[500px] m-auto">
 		<template v-if="type !== 'LOGIN'">
-			<p>Nazwa</p>
-			<input type="text" v-model="name" data-cy="name-input" />
+			<p class="text-center text-[1.6rem] mb-[20px]">Nazwa</p>
+			<input
+				type="text"
+				v-model="name"
+				data-cy="name-input"
+				class="w-full h-[50px] rounded-[5px] mb-[40px] text-blackText text-[1.2rem] py-[5px] px-[10px]"
+				placeholder="Wprowadź nazwe"
+			/>
 		</template>
 		<template v-if="type !== 'UPDATE'">
-			<p>Email</p>
-			<input type="text" v-model="email" data-cy="email-input" />
+			<p class="text-center text-[1.6rem] mb-[20px]">Email</p>
+			<input
+				type="text"
+				v-model="email"
+				data-cy="email-input"
+				placeholder="Wprowadź email..."
+				class="w-full h-[50px] rounded-[5px] mb-[40px] text-blackText text-[1.2rem] py-[5px] px-[10px]"
+			/>
 		</template>
 		<template v-if="type !== 'UPDATE'">
-			<p>Hasło</p>
+			<p class="text-center text-[1.6rem] mb-[20px]">Hasło</p>
 			<PasswordInput v-model="password" data-cy="password-input" />
 		</template>
 		<template v-if="type === 'UPDATE'">
-			<p>Biografia</p>
+			<p class="text-center text-[1.6rem] mb-[20px]">Biografia</p>
 			<textarea
 				spellcheck="false"
 				v-model="biography"
 				data-cy="biography-input"
+				placeholder="Wprowadź biografie..."
+				class="w-full h-[250px] rounded-[5px] mb-[40px] text-[1.2rem] text-blackText text-inherit py-[5px] px-[10px] resize-y"
 			></textarea>
 		</template>
 		<template v-if="type !== 'LOGIN'">
-			<p>Zdjęcie profilowe</p>
+			<p class="text-center text-[1.2rem] mb-[20px]">Zdjęcie profilowe</p>
 			<FileInput
 				id="user-file-input"
 				data-cy="file-input"
 				text="Dodaj
 			zdjęcie profilowe"
 				:change-cb="handleImageUpload"
+        additional-styles="dark:text-whiteText"
 			/>
 			<Avatar :src="fileLocation" alt="zdjęcie profilowe" />
 		</template>
-		<Button type="submit" class="submit-btn" data-cy="submit-btn">
+		<Button
+			type="submit"
+			class="submit-btn"
+			data-cy="submit-btn"
+			height="h-[60px]"
+			additional-styles="mt-[40px]"
+		>
 			Zatwierdź
 		</Button>
 		<Button
@@ -42,6 +69,8 @@
 			type="button"
 			@click="push('/user/create')"
 			data-cy="create-account-link"
+			height="h-[60px]"
+			additional-styles="mt-[40px]"
 		>
 			Nie masz konta? Stworz teraz
 		</Button>
@@ -51,6 +80,8 @@
 				@click="isModalOpen = true"
 				:bg-color="theme.colors.errorMain"
 				data-cy="open-delete-account-modal-btn"
+				height="h-[60px]"
+				additional-styles="mt-[40px]"
 			>
 				Usuń konto
 			</Button>
@@ -126,7 +157,7 @@ async function handleSubmit() {
 }
 </script>
 
-<style scoped lang="scss">
+<!-- <style scoped lang="scss">
 h1 {
 	text-align: center;
 	font-size: 2rem;
@@ -163,4 +194,4 @@ form {
 		margin-top: 30px;
 	}
 }
-</style>
+</style> -->

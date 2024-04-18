@@ -21,19 +21,27 @@ export const useAppStore = defineStore("app", {
 			const themeType = window.localStorage.getItem("theme")
 
 			if (themeType === "DARK") {
+				localStorage.setItem("theme", "dark")
 				this.theme = darkTheme
 			} else {
+				localStorage.setItem("theme", "light")
 				this.theme = lightTheme
 			}
+
+			themeType && document.querySelector("html")?.classList.add(themeType)
 		},
 		switchTheme() {
-			if (this.theme.type === "LIGHT") {
+			const htmlElement = document.querySelector("html")
+			this.theme.type && htmlElement?.classList.remove(this.theme.type)
+
+			if (this.theme.type === "light") {
 				this.theme = darkTheme
-				localStorage.setItem("theme", "DARK")
+				localStorage.setItem("theme", "dark")
 			} else {
 				this.theme = lightTheme
-				localStorage.setItem("theme", "LIGHT")
+				localStorage.setItem("theme", "light")
 			}
+			this.theme.type && htmlElement?.classList.add(this.theme.type)
 		},
 		startLoading() {
 			this.isLoading = true
@@ -59,7 +67,7 @@ export const useAppStore = defineStore("app", {
 			localStorage.setItem("user", JSON.stringify(user))
 		},
 		setToken(token: string) {
-			this.token = token      
+			this.token = token
 		},
 	},
 })

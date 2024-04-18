@@ -1,12 +1,20 @@
 <template>
-	<div class="user-blog" @click="push(`/blog/${blog._id}`)">
-		<header>
-			<strong>{{ blog.title }} - {{ getCreationDate(blog) }}</strong>
-			<div :to="author ? `/user/${author._id}` : ''" class="author-container">
+	<div
+		class="w-[90%] bg-lightMainBg-400 dark:bg-darkMainBg-400 rounded-lg p-2.5 cursor-pointer md:w-[45%] lg:w-[30%]"
+		@click="push(`/blog/${blog._id}`)"
+	>
+		<header class="flex justify-between items-center mr-1 mb-2.5">
+			<strong class="text-sm"
+				>{{ blog.title }} - {{ getCreationDate(blog) }}</strong
+			>
+			<div
+				:to="author ? `/user/${author._id}` : ''"
+				class="flex items-center gap-1 text-base"
+			>
 				<Avatar
 					alt="author avatar"
 					:src="author?.fileLocation || ''"
-					width="31px"
+					width="w-[31px]"
 				/>
 				<span v-if="author">
 					{{ author.name }}
@@ -14,11 +22,12 @@
 				<span v-else>Usunięty użytkownik</span>
 			</div>
 		</header>
-		<div class="img-wrapper">
+		<div class="w-full inline-block overflow-hidden">
 			<img
 				:src="
 					validateServerUrl(blog.mainFileLocation) || DEFAULT_BLOG_IMAGE_URL
 				"
+				class="w-full aspect-video object-cover hover:scale-110"
 				:alt="blog.title"
 			/>
 		</div>
@@ -26,11 +35,9 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from "vue-router"
 import { BlogType } from "@backend/types/blog/blog"
 import { validateServerUrl } from "../../app/utils/validateServerUrl"
-import { useRouter } from "vue-router"
-import { useAppStore } from "../../app/stores/appStore"
-import { storeToRefs } from "pinia"
 import { DEFAULT_BLOG_IMAGE_URL } from "../../app/constants/urls"
 import { UserType } from "@backend/types/user"
 import { useUser } from "../../pages/user/hooks/useUser"
@@ -45,8 +52,6 @@ const { blog } = defineProps<Props>()
 const author = ref<UserType | null>(null)
 const { getUser } = useUser()
 const { push } = useRouter()
-const appState = useAppStore()
-const { theme } = storeToRefs(appState)
 
 onMounted(async () => {
 	author.value = await getUser(blog.author)
@@ -61,7 +66,7 @@ function getCreationDate(blog: BlogType) {
 }
 </script>
 
-<style scoped lang="scss">
+<!-- <style scoped lang="scss">
 @import "../../app/style/variables";
 
 .user-blog {
@@ -110,4 +115,4 @@ function getCreationDate(blog: BlogType) {
 		width: 30%;
 	}
 }
-</style>
+</style> -->

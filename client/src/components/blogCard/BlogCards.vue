@@ -1,5 +1,5 @@
 <template>
-	<section v-if="blogs.length > 0" class="user-blogs">
+	<section v-if="blogs.length > 0" class="w-full my-5 flex row flex-wrap justify-center items-center gap-4">
 		<Card
 			v-for="blog in blogs"
 			:key="blog._id"
@@ -19,7 +19,7 @@ type Props = {
 const { blogs } = defineProps<Props>()
 </script>
 
-<style scoped lang="scss">
+<!-- <style scoped lang="scss">
 @import "../../app/style/variables";
 
 .user-blogs {
@@ -31,4 +31,4 @@ const { blogs } = defineProps<Props>()
 	align-items: center;
 	gap: 15px;
 }
-</style>
+</style> -->

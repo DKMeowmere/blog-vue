@@ -2,6 +2,7 @@
 	<img
 		:alt="element.alt"
 		:src="validateServerUrl(element.fileLocation) || DEFAULT_BLOG_IMAGE_URL"
+		class="w-[70%] aspect-video my-5 mx-auto object-cover"
 	/>
 </template>
 

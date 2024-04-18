@@ -1,11 +1,9 @@
 <template>
 	<teleport to="#alerts">
-		<section class="alerts-container">
-			<Alert
-				v-for="alert in alertsQueue"
-				:key="alert.id"
-				:alert="alert"
-			/>
+		<section
+			class="fixed w-[80%] max-w-[400px] left-[50%] translate-y-[-50%] bottom-[20px] flex flex-col gap-[30px] sm:left-[20px] sm:translate-y-0"
+		>
+			<Alert v-for="alert in alertsQueue" :key="alert.id" :alert="alert" />
 		</section>
 	</teleport>
 </template>

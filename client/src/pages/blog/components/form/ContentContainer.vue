@@ -1,32 +1,34 @@
 <template>
-	<section class="elements-form-container">
-		<header class="add-element-btn-container">
+	<section class="w-full h-full flex flex-row flex-wrap">
+		<header
+			class="w-full h-[10%] border-black mx-5 mt-2.5 flex items-center justify-center gap-5 mb-4"
+		>
 			<Icon
-				class="add-element-btn"
+				class="w-10 h-10 bg-main text-whiteText p-2 rounded-full cursor-pointer hover:shadow-main hover:shadow-[0px_0px_15px_0px]"
 				data-cy="add-text-element-btn"
 				:icon="getIcon('TEXT')"
 				@click="addElement('TEXT')"
 			/>
 			<Icon
-				class="add-element-btn"
+				class="w-10 h-10 bg-main text-whiteText p-2 rounded-full cursor-pointer hover:shadow-main hover:shadow-[0px_0px_15px_0px]"
 				data-cy="add-image-element-btn"
 				:icon="getIcon('IMAGE')"
 				@click="addElement('IMAGE')"
 			/>
 			<Icon
-				class="add-element-btn"
+				class="w-10 h-10 bg-main text-whiteText p-2 rounded-full cursor-pointer hover:shadow-main hover:shadow-[0px_0px_15px_0px]"
 				data-cy="add-quote-element-btn"
 				:icon="getIcon('QUOTE')"
 				@click="addElement('QUOTE')"
 			/>
 			<Icon
-				class="add-element-btn"
+				class="w-10 h-10 bg-main text-whiteText p-2 rounded-full cursor-pointer hover:shadow-main hover:shadow-[0px_0px_15px_0px]"
 				data-cy="add-subtitle-element-btn"
 				:icon="getIcon('SUBTITLE')"
 				@click="addElement('SUBTITLE')"
 			/>
 			<Icon
-				class="add-element-btn"
+				class="w-10 h-10 bg-main text-whiteText p-2 rounded-full cursor-pointer hover:shadow-main hover:shadow-[0px_0px_15px_0px]"
 				data-cy="add-list-element-btn"
 				:icon="getIcon('LIST')"
 				@click="addElement('LIST')"
@@ -39,11 +41,15 @@
 			:update-content="updateContent"
 			:update-selected-element="element => (selectedElement = element)"
 		/>
-		<div v-if="selectedElement" class="blog-element" :key="selectedElement._id">
+		<div
+			v-if="selectedElement"
+			class="w-[calc(90%-40px)] h-4/5 pt-9 pb-1.5 px-5 overflow-y-auto relative"
+			:key="selectedElement._id"
+		>
 			<Icon
 				icon="mdi:trash-can"
 				@click="deleteElement"
-				class="delete-element-btn"
+				class="absolute right-[10%] top-[5px] w-10 h-10 bg-errorMain text-whiteText p-2 rounded-full hover:shadow-errorMain hover:shadow-[0px_0p_15px_0px] cursor-pointer"
 				data-cy="delete-element-btn"
 			/>
 			<TextElementForm
@@ -72,9 +78,17 @@
 				:update-content="updateContent"
 			/>
 		</div>
-		<div v-else class="content-is-empty-card">
-			<Icon icon="lets-icons:blank-fill" class="content-is-empty-icon" />
-			<p>Nic tu nie ma. Dodaj element</p>
+		<div
+			v-else
+			class="w-[calc(90%-40px)] h-4/5 pt-6 px-5 mb-1.5 flex flex-col justify-center items-center gap-7"
+		>
+			<Icon
+				icon="lets-icons:blank-fill"
+				class="block text-[6rem] aspect-square text-[#9e9e9e]"
+			/>
+			<p class="text-[2rem] text-center text-[#9e9e9e]">
+				Nic tu nie ma. Dodaj element
+			</p>
 		</div>
 	</section>
 </template>
@@ -82,9 +96,7 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue"
 import { ref } from "vue"
-import { storeToRefs } from "pinia"
 import { BlogElement, BlogElementTypes } from "@backend/types/blog/blog"
-import { useAppStore } from "../../../../app/stores/appStore"
 import { useBlogElements } from "../../hooks/useBlogElements"
 import ElementsIcons from "./ElementsIcons.vue"
 import TextElementForm from "./elements/TextElementForm.vue"
@@ -100,8 +112,6 @@ type Props = {
 }
 
 const { blogId, content, updateContent } = defineProps<Props>()
-const appState = useAppStore()
-const { theme } = storeToRefs(appState)
 const {
 	textElementServerAction,
 	imageElementServerAction,
@@ -184,7 +194,7 @@ async function deleteElement() {
 }
 </script>
 
-<style scoped lang="scss">
+<!-- <style scoped lang="scss">
 @import "../../../../app/style/variables";
 
 .elements-form-container {
@@ -224,7 +234,6 @@ async function deleteElement() {
 			position: absolute;
 			right: 10%;
 			top: 5px;
-			cursor: pointer;
 			width: 40px;
 			height: 40px;
 			background-color: v-bind("theme.colors.errorMain");
@@ -259,4 +268,4 @@ async function deleteElement() {
 		}
 	}
 }
-</style>
+</style> -->

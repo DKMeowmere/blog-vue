@@ -1,11 +1,17 @@
+<template>
+	<div
+		class="w-full h-screen fixed top-0 left-0 bg-black opacity-70 z-50 flex justify-center items-center"
+	>
+		<Icon
+			icon="line-md:loading-loop"
+			class="w-[150px] h-[150px] text-whiteText"
+		/>
+	</div>
+</template>
+
 <script setup lang="ts">
 import { onMounted, onUnmounted } from "vue"
-import { storeToRefs } from "pinia"
 import { Icon } from "@iconify/vue"
-import { useAppStore } from "../app/stores/appStore"
-
-const appStore = useAppStore()
-const { theme } = storeToRefs(appStore)
 
 onMounted(() => {
 	document.body.style.overflow = "hidden"
@@ -16,13 +22,7 @@ onUnmounted(() => {
 })
 </script>
 
-<template>
-	<div class="loading-screen">
-		<Icon icon="line-md:loading-loop" />
-	</div>
-</template>
-
-<style scoped lang="scss">
+<!-- <style scoped lang="scss">
 .loading-screen {
 	width: 100%;
 	height: 100vh;
@@ -40,4 +40,4 @@ onUnmounted(() => {
 		color: v-bind("theme.colors.whiteText");
 	}
 }
-</style>
+</style> -->

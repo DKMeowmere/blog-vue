@@ -1,5 +1,5 @@
 <template>
-	<p>Czy na pewno?</p>
+	<p class="font-[2rem]">Czy na pewno?</p>
 	<Button
 		type="button"
 		@click="deleteUser(id.toString())"
@@ -26,8 +26,8 @@ const { params } = useRoute()
 const { id } = params
 </script>
 
-<style lang="scss" scoped style="scss">
+<!-- <style lang="scss" scoped style="scss">
 p {
 	font-size: 2rem;
 }
-</style>
+</style> -->

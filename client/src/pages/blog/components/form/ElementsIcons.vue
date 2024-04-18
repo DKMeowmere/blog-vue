@@ -1,17 +1,16 @@
 <template>
 	<draggable
-		class="elements-icons"
+		class="w-10 min-w-10 h-4/5 p-1.5 flex flex-col items-center gap-2 border-r-2 overflow-y-auto"
 		v-model="elements"
 		item-key="_id"
 		@change="swapElements"
 	>
 		<template #item="{ element }">
-			<div
-				@click="updateSelectedElement(element)"
-				class="select-element"
-				data-="select-element"
-			>
-				<Icon :icon="getIcon(element.type)" class="select-element-icon" />
+			<div @click="updateSelectedElement(element)" data-="select-element">
+				<Icon
+					:icon="getIcon(element.type)"
+					class="w-[25px] min-h-[25px] cursor-pointer md:w-w-[235px] md:min-h-[35px]"
+				/>
 			</div>
 		</template>
 	</draggable>
@@ -63,7 +62,7 @@ function getIcon(type: BlogElementTypes) {
 }
 </script>
 
-<style scoped lang="scss">
+<!-- <style scoped lang="scss">
 @import "../../../../app/style/variables";
 
 .elements-icons {
@@ -92,4 +91,4 @@ function getIcon(type: BlogElementTypes) {
 		}
 	}
 }
-</style>
+</style> -->

@@ -1,13 +1,18 @@
 <template>
 	<teleport to="#modal">
-		<div class="modal-container">
+		<div
+			class="w-full h-[calc(100vh-64px)] top-[64px] left-0 fixed bg-[#000000bb] flex items-center justify-center"
+		>
 			<Icon
 				icon="material-symbols:close"
-				class="close-btn"
+				class="absolute bottom-[10px] text-whiteText w-[60px] h-[60px] cursor-pointer sm:top-[40px] sm:right-[10px] md:right-[30px]"
 				data-cy="close-btn"
 				@click="emit('close')"
 			/>
-			<div class="content" @click.stop>
+			<div
+				class="w-[90%] max-w-[800px] bg-white rouded-[20px] h-[calc(80vh-64px)] overflow-y-auto flex justify-center items-center flex-col relative g-[20px] sm-w-[80%] lg:max-w-[1000px] rounded-2xl"
+				@click.stop
+			>
 				<slot> </slot>
 			</div>
 		</div>
@@ -32,7 +37,7 @@ onUnmounted(() => {
 })
 </script>
 
-<style scoped lang="scss">
+<!-- <style scoped lang="scss">
 @import "../app/style/_variables";
 
 .modal-container {
@@ -93,4 +98,4 @@ onUnmounted(() => {
 		}
 	}
 }
-</style>
+</style> -->

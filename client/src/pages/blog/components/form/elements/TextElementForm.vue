@@ -1,30 +1,33 @@
 <template>
 	<Icon
-		class="toggle-preview-mode-btn"
+		class="absolute left-[10%] top-[5px] cursor-pointer w-10 h-10 bg-main text-whiteText p-2 rounded-full hover:shadow-main hover:shadow-[0px_0px_15px_0px]"
 		:icon="isPreviewModeActive ? 'mdi:text-box-outline' : 'mdi:eye'"
 		@click="isPreviewModeActive = !isPreviewModeActive"
 	/>
-	<p class="title">Podaj tekst</p>
-	<div v-if="isPreviewModeActive" class="decorate-btns-container">
+	<p class="text-center text-[2rem] mb-[30px]">Podaj tekst</p>
+	<div
+		v-if="isPreviewModeActive"
+		class="w-full h-2/5 flex items-center justify-evenly my-4"
+	>
 		<Icon
 			@click="decorateText('BOLD')"
 			icon="ooui:bold-b"
-			class="decorate-btn"
+			class="cursor-pointer w-10 h-10 bg-successMain text-whiteText p-2 rounded-full hover:shadow-successMain hover:shadow-[0px_0px_15px_0px]"
 		/>
 		<Icon
 			@click="decorateText('UNDERLINE')"
 			icon="ri:underline"
-			class="decorate-btn"
+			class="cursor-pointer w-10 h-10 bg-successMain text-whiteText p-2 rounded-full hover:shadow-successMain hover:shadow-[0px_0px_15px_0px]"
 		/>
 		<Icon
 			@click="decorateText('STRIKE')"
 			icon="ant-design:strikethrough-outlined"
-			class="decorate-btn"
+			class="cursor-pointer w-10 h-10 bg-successMain text-whiteText p-2 rounded-full hover:shadow-successMain hover:shadow-[0px_0px_15px_0px]"
 		/>
 		<Icon
 			@click="decorateText('ITALIC')"
 			icon="mingcute:italic-fill"
-			class="decorate-btn"
+			class="cursor-pointer w-10 h-10 bg-successMain text-whiteText p-2 rounded-full hover:shadow-successMain hover:shadow-[0px_0px_15px_0px]"
 		/>
 	</div>
 	<textarea
@@ -32,10 +35,12 @@
 		v-model="body"
 		spellcheck="false"
 		data-cy="text-element-input"
+    placeholder="Podaj tekst..."
+		class="w-full h-[65%] resize-none overflow-auto text-inherit p-1.5 border-[#ccc] border"
 	></textarea>
 	<p
 		v-else
-		class="preview-text"
+		class="w-full h-[65%] p-4 border-[#ccc] overflow-y-auto"
 		@mousedown="onMousedown"
 		@mouseup="getSelectedTextIndex"
 		@mouseleave="getSelectedTextIndex"
@@ -49,21 +54,28 @@
 		</template>
 		<template v-else>
 			<span v-text="start"></span>
-			<span class="highlighted-text"> <span v-text="middle"></span></span>
+			<span
+				class="bg-[#0011ff] color-whiteText underline decoration-dotted decoration-whiteText"
+			>
+				<span v-text="middle"></span
+			></span>
 			<span v-text="end"></span
 		></template>
 	</p>
-	<Button @click="handleSubmit" data-cy="edit-text-element-btn">Edytuj</Button>
+	<Button
+		@click="handleSubmit"
+		data-cy="edit-text-element-btn"
+		additional-styles="mt-[30px] h-[50px]"
+		>Edytuj</Button
+	>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from "vue"
 import { useRoute } from "vue-router"
 import { Icon } from "@iconify/vue"
-import { storeToRefs } from "pinia"
 import { TextElementType } from "@backend/types/blog/text"
 import { BlogElement } from "@backend/types/blog/blog"
-import { useAppStore } from "../../../../../app/stores/appStore"
 import { useBlogElements } from "../../../hooks/useBlogElements"
 import Button from "../../../../../components/Button.vue"
 
@@ -76,8 +88,6 @@ const { element, updateContent } = defineProps<Props>()
 const { params } = useRoute()
 const { id } = params
 const { textElementServerAction } = useBlogElements()
-const appState = useAppStore()
-const { theme } = storeToRefs(appState)
 const body = ref(element.body)
 const start = ref("")
 const middle = ref("")
@@ -163,7 +173,7 @@ async function handleSubmit() {
 }
 </script>
 
-<style scoped lang="scss">
+<!-- <style scoped lang="scss">
 @import "../../../../../app/style/_variables.scss";
 
 .toggle-preview-mode-btn {
@@ -204,7 +214,6 @@ textarea {
 	justify-content: space-evenly;
 	margin: 15px 0;
 	.decorate-btn {
-		cursor: pointer;
 		width: 40px;
 		height: 40px;
 		background-color: v-bind("theme.colors.successMain");
@@ -233,4 +242,4 @@ button {
 	width: 100%;
 	margin-top: 30px;
 }
-</style>
+</style> -->

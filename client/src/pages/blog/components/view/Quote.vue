@@ -1,9 +1,13 @@
 <template>
-	<blockquote>
+	<blockquote
+		:class="`w-[90%] max-w-[600px] relative my-6 mx-0 ${
+			element.author ? 'p-[50px]' : 'p-[20px]'
+		} border-y-blackText dark:border-y-whiteText italic text-[1.1rem] md:text-[1.5rem] md:m-auto`"
+	>
 		<q>
 			{{ element.body }}
 		</q>
-		<span class="author">{{ element.author }}</span>
+		<span class="absolute bottom-[5px] right-[8px]">{{ element.author }}</span>
 	</blockquote>
 </template>
 

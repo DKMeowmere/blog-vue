@@ -1,7 +1,7 @@
 import { Theme } from "@backend/types/client/theme"
 
 export const lightTheme: Theme = {
-	type: "LIGHT",
+	type: "light",
 	media: {
 		breakpoints: {
 			xs: "0px",

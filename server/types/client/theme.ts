@@ -1,4 +1,4 @@
-export type ThemeType = "LIGHT" | "DARK"
+export type ThemeType = "light" | "dark"
 
 export type Theme = {
 	type: ThemeType

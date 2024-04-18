@@ -1,27 +1,42 @@
 <template>
-	<article v-if="user">
-		<h1 class="user-name" data-cy="user-name">{{ user.name }}</h1>
+	<article
+		v-if="user"
+		class="flex flex-col items-center m-auto w-[90%] max-w-[500px] gap-[40px] sm:max-w-[700px]md:max-w-[900px] lg:max-w-[1000px]"
+	>
+		<h1
+			class="text-[2.6rem] sm:text-[3.2rem] md:text-[4.4rem]"
+			data-cy="user-name"
+		>
+			{{ user.name }}
+		</h1>
 		<Avatar
 			alt="Zdjęcie profilowe"
 			:src="user.fileLocation || ''"
-			width="50%"
+			width="w-[50%]"
 			data-cy="user-avatar"
 		/>
-		<p class="biography" data-cy="user-biography">{{ user.biography }}</p>
-		<h2>Blogi użytkownika:</h2>
+		<p
+			class="text-center italic text-[1rem] sm:text-[1.4rem] md:text-[1.8rem]"
+			data-cy="user-biography"
+		>
+			{{ user.biography }}
+		</p>
+		<h2 class="text-[2rem] sm:text-[2.4rem] md:text-[3rem]">
+			Blogi użytkownika:
+		</h2>
 		<BlogCards :blogs="user.userBlogs as BlogType[]" />
 		<template v-if="isUserAccountOwner">
 			<Button
-				width="60%"
+				width="w-[60%]"
 				@click="push(`/user/${id}/update`)"
 				data-cy="update-link"
 			>
 				Edytuj
 			</Button>
-			<Button width="60%" @click="logout" data-cy="logout-btn">
+			<Button width="w-[60%]" @click="logout" data-cy="logout-btn">
 				Wyloguj się
-			</Button>
-		</template>
+			</Button>  
+    </template>
 	</article>
 </template>
 
@@ -30,13 +45,13 @@ import { storeToRefs } from "pinia"
 import { computed, onMounted, ref } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { UserType } from "@backend/types/user"
+import { BlogType } from "@backend/types/blog/blog"
 import { USER_NOT_FOUND } from "../../app/constants/alerts"
 import { useAppStore } from "../../app/stores/appStore"
 import { useUser } from "./hooks/useUser"
 import Avatar from "../../components/Avatar.vue"
 import Button from "../../components/Button.vue"
 import BlogCards from "../../components/blogCard/BlogCards.vue"
-import { BlogType } from "@backend/types/blog/blog"
 
 const { push } = useRouter()
 const { params } = useRoute()
@@ -59,7 +74,7 @@ onMounted(async () => {
 	}
 })
 </script>
-
+<!-- 
 <style scoped lang="scss">
 @import "../../app/style/variables";
 
@@ -116,4 +131,4 @@ article {
 		max-width: 1000px;
 	}
 }
-</style>
+</style>  -->
