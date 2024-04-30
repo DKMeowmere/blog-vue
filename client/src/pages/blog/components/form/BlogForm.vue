@@ -31,7 +31,7 @@
 			:add-tag-cb="value => tags.push(value)"
 			:remove-tag-cb="value => (tags = tags.filter(tag => tag !== value))"
 		/>
-		<p>Zdjęcie bloga</p>
+		<p class="text-center text-[1.6rem] mb-[20px]">Zdjęcie bloga</p>
 		<FileInput
 			id="user-file-input"
 			data-cy="file-input"

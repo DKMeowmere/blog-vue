@@ -11,7 +11,8 @@
 	<Button
 		data-cy="add-list-item"
 		@click="list.push({ _id: genereteUUID(), body: '', type: 'TEXT' })"
-		additional-styles="mt-[30px] h-[50px]"
+    height="h-12"
+		additional-styles="mt-[30px]"
 		>Dodaj element listy
 	</Button>
 	<div
@@ -35,7 +36,7 @@
 			class="w-[10%] aspect-square cursor-pointer text-[2rem] hover:text-errorMain"
 		/>
 	</div>
-	<Button @click="handleSubmit" data-cy="edit-list-element-btn" additional-styles="h-12">
+	<Button @click="handleSubmit" data-cy="edit-list-element-btn" height="h-12">
 		Zatwierdź
 	</Button>
 </template>

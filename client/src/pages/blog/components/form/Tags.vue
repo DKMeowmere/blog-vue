@@ -20,16 +20,13 @@
 	<div class="w-full my-7 flex flex-wrap gap-4">
 		<div
 			v-for="tag in tags"
-			class="group relative py-2.5 px-4 text-whiteText bg-main flex-grow-[1] rounded-[7px] text-[1.2rem] text-bold uppercase text-center cursor-pointer tracting-[1.5px] hover:text-main"
+			class="group relative py-2.5 px-4 flex-grow-[1] rounded-[7px] text-[1.2rem] text-bold uppercase text-center cursor-pointer tracting-[1.5px] tag"
 			data-cy="tag"
 			:key="tag"
 			@click="() => removeTagCb(tag)"
 		>
 			{{ tag }}
-			<Icon
-				icon="material-symbols:close"
-				class="opacity-0 absolute w-7 h-7 top-1/2 left-1/2 -translate-1/2 text-whiteText group-hover:opacity-100"
-			/>
+			<Icon icon="material-symbols:close" class="icon" />
 		</div>
 	</div>
 </template>
@@ -48,7 +45,7 @@ type Props = {
 }
 
 const appState = useAppStore()
-const { enqueueAlert } = appState
+const { enqueueAlert, theme } = appState
 const { tags, addTagCb, removeTagCb } = defineProps<Props>()
 const tagInput = ref("")
 
@@ -67,7 +64,32 @@ function addTag() {
 }
 </script>
 
-<!-- <style scoped>
+<style lang="scss">
+.tag {
+	color: v-bind("theme.colors.whiteText");
+	background-color: v-bind("theme.colors.main");
+	.icon {
+		visibility: hidden;
+		position: absolute;
+		width: 30px;
+		height: 30px;
+		top: 50%;
+		left: 50%;
+		translate: -50% -50%;
+		color: v-bind("theme.colors.main");
+	}
+	&:hover {
+		color: v-bind("theme.colors.main");
+		.icon {
+			color: v-bind("theme.colors.whiteText");
+			visibility: visible;
+		}
+	}
+}
+</style>
+
+<!-- 
+<style scoped>
 .input-container {
 	width: 100%;
 	height: 50px;

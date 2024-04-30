@@ -12,7 +12,8 @@
 	<Button
 		@click="handleSubmit"
 		data-cy="edit-subtitle-element-btn"
-		additional-styles="mb-[30px] h-[50px]"
+    height="h-12"
+		additional-styles="mb-[30px]"
 		>Edytuj</Button
 	>
 </template>

@@ -20,7 +20,7 @@ export const useAppStore = defineStore("app", {
 		setupTheme() {
 			const themeType = window.localStorage.getItem("theme")
 
-			if (themeType === "DARK") {
+			if (themeType === "dark") {
 				localStorage.setItem("theme", "dark")
 				this.theme = darkTheme
 			} else {

@@ -1,6 +1,6 @@
 <template>
 	<draggable
-		class="w-10 min-w-10 h-4/5 p-1.5 flex flex-col items-center gap-2 border-r-2 overflow-y-auto"
+		class="w-[10%] min-w-10 h-4/5 p-1.5 flex flex-col items-center gap-2 border-r-2 overflow-y-auto"
 		v-model="elements"
 		item-key="_id"
 		@change="swapElements"

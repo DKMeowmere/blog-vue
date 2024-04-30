@@ -2,13 +2,13 @@
 	<p class="text-center text-[2rem] mb-[30px]">Podaj cytat</p>
 	<textarea
 		type="text"
-		class="w-full h-150px resize-none overflow-y-auto text-inherit py-1.5 px-2.5"
+		class="w-full h-[150px] resize-none overflow-y-auto text-inherit py-1.5 px-2.5 border"
 		v-model="body"
 		data-cy="quote-element-body-input"
 		placeholder="Cytat..."
 		spellcheck="false"
 	/>
-	<p class="title">Podaj autora</p>
+	<p class="text-center text-[2rem] mb-[30px]">Podaj autora</p>
 	<input
 		type="text"
 		v-model="author"
@@ -17,7 +17,13 @@
 		spellcheck="false"
 		class="w-full h-50px border rounded-[5px] test-[1.2rem] mb-2.5 py-1.5 px-2.5"
 	/>
-	<Button @click="handleSubmit" data-cy="edit-quote-element-btn" additional-styles="mt-[30px]">Edytuj</Button>
+	<Button
+		@click="handleSubmit"
+		data-cy="edit-quote-element-btn"
+		height="h-12"
+		additional-styles="mt-[30px]"
+		>Edytuj</Button
+	>
 </template>
 
 <script setup lang="ts">

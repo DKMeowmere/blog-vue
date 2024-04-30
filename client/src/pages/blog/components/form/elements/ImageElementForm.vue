@@ -5,7 +5,7 @@
 		text="Dodaj zdjęcie"
 		:change-cb="handleImageUpload"
 		bg-color="bg-[#fff]"
-    additional-styles="text-blackText"
+		additional-styles="text-blackText"
 	/>
 	<img
 		:src="validateServerUrl(fileLocation) || DEFAULT_BLOG_IMAGE_URL"
@@ -23,7 +23,8 @@
 	<Button
 		@click="handleSubmit"
 		data-cy="edit-image-element-btn"
-		additional-styles="mt-[30px] h-[50px]"
+		additional-styles="mt-[30px]"
+		height="h-12"
 		>Edytuj</Button
 	>
 </template>
